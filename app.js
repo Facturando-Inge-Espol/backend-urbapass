@@ -1,22 +1,32 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require('cors');
+var express = require("express");
+var path = require("path");
+var cookieParser = require("cookie-parser");
+var logger = require("morgan");
+var cors = require("cors");
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usuarioRouter = require("./routes/usuario");
+var residenteRouter = require("./routes/residente");
+var administradorRouter = require("./routes/administrador");
+var guardiaRouter = require("./routes/guardia");
+var alicuotaRouter = require("./routes/alicuota");
+var pagoRouter = require("./routes/pago");
+var qrRouter = require("./routes/qr");
 
 var app = express();
 app.use(cors());
 
-app.use(logger('dev'));
+app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use("/usuario", usuarioRouter);
+app.use("/residente", residenteRouter);
+app.use("/administrador", administradorRouter);
+app.use("/guardia", guardiaRouter);
+app.use("/alicuota", alicuotaRouter);
+app.use("/pago", pagoRouter);
+app.use("/qr", qrRouter);
 
 module.exports = app;
