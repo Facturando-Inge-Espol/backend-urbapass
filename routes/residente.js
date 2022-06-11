@@ -1,14 +1,35 @@
 var express = require("express");
-const { route } = require("express/lib/application");
 var router = express.Router();
 
 const sequelize = require("../models/index.js").sequelize;
 var initModels = require("../models/init-models");
 var models = initModels(sequelize);
 
+/* Getting all the residentes from the database. */
 router.get("/", (req, res, next) => {
   models.residente
-    .findAll()
+    .findAll({
+      include: {
+        model: models.usuario,
+        association: "info_usuario",
+        attributes: {
+          exclude: ["cedula", "urbanizacion"],
+        },
+        include: [
+          {
+            model: models.persona,
+            association: "info_persona",
+          },
+          {
+            model: models.urbanizacion,
+            association: "info_urbanizacion",
+            attributes: {
+              exclude: ["cuenta"],
+            },
+          },
+        ],
+      },
+    })
     .then((residentes) => {
       res.send(residentes);
     })
@@ -17,9 +38,19 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.post("/", (req, res, next) => {
-  models.residente
-    .create(req.body)
+router.post("/", async (req, res, next) => {
+  await ({ cedula, nombre, apellido, urbanizacion, correo, clave, direccion } =
+    req.body);
+  await models.persona.create({ cedula, nombre, apellido }).catch((err) => {
+    res.status(500).send(err);
+  });
+  await models.usuario
+    .create({ cedula, urbanizacion, correo, clave })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+  await models.residente
+    .create({ cedula, direccion })
     .then((response) => {
       res.status(200).send(response);
     })

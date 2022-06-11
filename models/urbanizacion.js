@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('urbanizacion', {
     uid: {
-      type: DataTypes.BLOB,
+      type: DataTypes.CHAR(36),
       allowNull: false,
       primaryKey: true
     },
@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       unique: "nombre"
     },
     cuenta: {
-      type: DataTypes.BLOB,
+      type: DataTypes.CHAR(36),
       allowNull: false,
       references: {
         model: 'cuentabancaria',
@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       unique: "urbCtaFK"
     },
     direccion: {
-      type: DataTypes.BLOB,
+      type: DataTypes.CHAR(36),
       allowNull: false,
       references: {
         model: 'direccion',
@@ -32,11 +32,7 @@ module.exports = function(sequelize, DataTypes) {
     ruc: {
       type: DataTypes.CHAR(13),
       allowNull: false,
-      references: {
-        model: 'ruc',
-        key: 'numero'
-      },
-      unique: "urbRucFK"
+      unique: "ruc"
     }
   }, {
     sequelize,

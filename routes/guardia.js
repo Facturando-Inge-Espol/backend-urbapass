@@ -8,7 +8,28 @@ var models = initModels(sequelize);
 
 router.get("/", (req, res, next) => {
   models.guardia
-    .findAll()
+    .findAll({
+      include: {
+        model: models.usuario,
+        association: "info_usuario",
+        attributes: {
+          exclude: ["cedula", "urbanizacion"],
+        },
+        include: [
+          {
+            model: models.persona,
+            association: "info_persona",
+          },
+          {
+            model: models.urbanizacion,
+            association: "info_urbanizacion",
+            attributes: {
+              exclude: ["cuenta"],
+            },
+          },
+        ],
+      },
+    })
     .then((guardias) => {
       res.send(guardias);
     })
@@ -17,14 +38,23 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.post("/", (req, res, next) => {
-  models.guardia
-    .create(req.body)
+router.post("/", async (req, res, next) => {
+  await ({ cedula, nombre, apellido, urbanizacion, correo, clave } = req.body);
+  await models.persona.create({ cedula, nombre, apellido }).catch((err) => {
+    res.status(500).send(err);
+  });
+  await models.usuario
+    .create({ cedula, urbanizacion, correo, clave })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+  await models.guardia
+    .create({ cedula })
     .then((response) => {
-      res.status(200).send();
+      res.status(200).send(response);
     })
     .catch((err) => {
-      res.status(400).send(err);
+      res.status(500).send(err);
     });
 });
 

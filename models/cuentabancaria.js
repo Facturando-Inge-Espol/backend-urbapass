@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('cuentabancaria', {
     uid: {
-      type: DataTypes.BLOB,
+      type: DataTypes.CHAR(36),
       allowNull: false,
       primaryKey: true
     },
@@ -10,13 +10,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(14),
       allowNull: false
     },
-    tipo: {
-      type: DataTypes.BLOB,
-      allowNull: false,
-      references: {
-        model: 'banco',
-        key: 'uid'
-      }
+    nombreOwner: {
+      type: DataTypes.CHAR(10),
+      allowNull: false
+    },
+    nombreBanco: {
+      type: DataTypes.STRING(40),
+      allowNull: false
     }
   }, {
     sequelize,
@@ -29,13 +29,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "uid" },
-        ]
-      },
-      {
-        name: "cbtypeFK",
-        using: "BTREE",
-        fields: [
-          { name: "tipo" },
         ]
       },
     ]

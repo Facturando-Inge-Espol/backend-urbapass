@@ -8,7 +8,28 @@ var models = initModels(sequelize);
 
 router.get("/", (req, res, next) => {
   models.administrador
-    .findAll()
+    .findAll({
+      include: {
+        model: models.usuario,
+        association: "info_usuario",
+        attributes: {
+          exclude: ["cedula", "urbanizacion"],
+        },
+        include: [
+          {
+            model: models.persona,
+            association: "info_persona",
+          },
+          {
+            model: models.urbanizacion,
+            association: "info_urbanizacion",
+            attributes: {
+              exclude: ["cuenta"],
+            },
+          },
+        ],
+      },
+    })
     .then((administradores) => {
       res.send(administradores);
     })
