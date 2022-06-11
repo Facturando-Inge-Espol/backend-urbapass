@@ -45,7 +45,7 @@ Todos los parámetros solicitados en ciertos métodos HTTP deben ser enviados me
 |Método|Ruta|Función|Parámetros|
 |------|----|-------|----------|
 |`get`|/residente|Retorna todos los residentes.|None|
-|`post`|/residente|Añade un residente a la db.|`cedula` `nombre` `apellido` `urbanizacion` `correo` `clave` `direccion`|
+|`post`|/residente|Añade un residente a la db.|`cedula` `nombre` `apellido` `urbano` `correo` `clave` `dir`|
 |`get`|/residente/:cedula|Retorna el residente con la cédula dada.|None|
 |`put`|/residente/:cedula|Actualiza el residente con la cédula dada en la db.|WIP|
 |`delete`|/residente/:cedula|Elimina el residente con la cédula dada en la db.|None|
@@ -65,7 +65,7 @@ Todos los parámetros solicitados en ciertos métodos HTTP deben ser enviados me
 |Método|Ruta|Función|Parámetros|
 |------|----|-------|----------|
 |`get`|/guardia|Retorna todos los guardias.|None|
-|`post`|/guardia|Añade un guardia a la bd.|`cedula` `nombre` `apellido` `urbanizacion` `correo` `clave`|
+|`post`|/guardia|Añade un guardia a la bd.|`cedula` `nombre` `apellido` `urbano` `correo` `clave`|
 |`get`|/guardia/:cedula|Retorna el guardia con la cédula dada.|None|
 |`put`|/guardia/:cedula|Actualiza el guardia con la cédula dada.|WIP|
 |`delete`|/guardia/:cedula|Elimina el guardia con la cédula dada en la bd.|None|
