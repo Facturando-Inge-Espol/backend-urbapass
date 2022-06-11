@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     urbanizacion: {
-      type: DataTypes.BLOB,
+      type: DataTypes.CHAR(36),
       allowNull: false,
       references: {
         model: 'urbanizacion',

@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('qr', {
     uid: {
-      type: DataTypes.BLOB,
+      type: DataTypes.CHAR(36),
       allowNull: false,
       primaryKey: true
     },
@@ -29,6 +29,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     placa: {
       type: DataTypes.STRING(7),
+      allowNull: false
+    },
+    fechaEmision: {
+      type: DataTypes.DATEONLY,
       allowNull: false
     }
   }, {

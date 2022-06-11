@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('direccion', {
     uid: {
-      type: DataTypes.BLOB,
+      type: DataTypes.CHAR(36),
       allowNull: false,
       primaryKey: true
     },
