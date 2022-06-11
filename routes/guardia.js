@@ -1,10 +1,23 @@
-const { response } = require("express");
 var express = require("express");
 var router = express.Router();
 
 const sequelize = require("../models/index.js").sequelize;
 var initModels = require("../models/init-models");
 var models = initModels(sequelize);
+
+const verificarExistencia = async (modelo, uid, mensajeError) => {
+  const existencia = await modelo.findAll({ where: { uid } });
+  if (existencia.length == 1) {
+    return { existe: true, error: null };
+  }
+  return { existe: false, error: mensajeError };
+};
+
+const getAttribute = (array, atributo) => {
+  res = [];
+  array.forEach((item) => res.push(item[atributo]));
+  return res;
+};
 
 router.get("/", (req, res, next) => {
   models.guardia
@@ -39,23 +52,41 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  await ({ cedula, nombre, apellido, urbanizacion, correo, clave } = req.body);
-  await models.persona.create({ cedula, nombre, apellido }).catch((err) => {
-    res.status(500).send(err);
-  });
-  await models.usuario
-    .create({ cedula, urbanizacion, correo, clave })
-    .catch((err) => {
+  await ({ cedula, nombre, apellido, urbano, correo, clave } = req.body);
+  const hasUrba = await verificarExistencia(
+    models.urbanizacion,
+    urbano,
+    "Urbanización no existe"
+  );
+  const uniqueCed = await verifyUnique(
+    await models.persona.findAll({ where: { cedula } }),
+    "Cédula Duplicada"
+  );
+  const uniqueEmail = await verifyUnique(
+    await models.usuario.findAll({ where: { correo } }),
+    "Correo Duplicado"
+  );
+  errores = [hasUrba, uniqueCed, uniqueEmail];
+  if (getAttribute(errores, "correcto").every((bool) => bool)) {
+    await models.persona.create({ cedula, nombre, apellido }).catch((err) => {
       res.status(500).send(err);
     });
-  await models.guardia
-    .create({ cedula })
-    .then((response) => {
-      res.status(200).send(response);
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
+    await models.usuario
+      .create({ cedula, urbanizacion, correo, clave })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
+    await models.guardia
+      .create({ cedula })
+      .then((response) => {
+        res.status(200).send(response);
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
+  } else {
+    res.status(500).send({ errores: getAttribute(errores, "err") });
+  }
 });
 
 router.get("/:cedula", (req, res, next) => {
