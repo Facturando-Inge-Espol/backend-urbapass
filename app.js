@@ -12,6 +12,7 @@ var alicuotaRouter = require("./routes/alicuota");
 var pagoRouter = require("./routes/pago");
 var qrRouter = require("./routes/qr");
 var urbanizacionRouter = require("./routes/urbanizacion");
+var tokenRouter = require("./routes/token");
 
 var app = express();
 app.use(cors());
@@ -30,5 +31,6 @@ app.use("/alicuota", alicuotaRouter);
 app.use("/pago", pagoRouter);
 app.use("/qr", qrRouter);
 app.use("/urbanizacion", urbanizacionRouter);
+app.use("/token", tokenRouter);
 
 module.exports = app;

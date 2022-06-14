@@ -7,7 +7,18 @@ var models = initModels(sequelize);
 
 router.get("/", (req, res, next) => {
   models.urbanizacion
-    .findAll()
+    .findAll({
+      include: [
+        {
+          model: models.cuentabancaria,
+          association: "info_cuenta",
+        },
+        {
+          model: models.direccion,
+          association: "info_direccion",
+        },
+      ],
+    })
     .then((urbanizacion) => {
       res.status(200).send(response);
     })

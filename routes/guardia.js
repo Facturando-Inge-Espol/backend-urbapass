@@ -52,7 +52,7 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  await ({ cedula, nombre, apellido, urbano, correo, clave } = req.body);
+  const { cedula, nombre, apellido, urbano, correo, clave } = req.body;
   const hasUrba = await verificarExistencia(
     models.urbanizacion,
     urbano,

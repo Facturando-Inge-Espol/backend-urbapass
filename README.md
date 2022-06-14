@@ -9,10 +9,12 @@
    * [Residente](#residente)
    * [Administrador](#administrador)
    * [Guardia](#guardia)
+   * [Dirección](#dirección)
    * [Urbanización](#urbanización)
    * [Alicuota](#alicuotas)
    * [Pago](#pagos)
    * [QR](#qr)
+   * [Token](#token)
 4. [Reconstrucción de Modelos](#reconstrucción-de-modelos)
 5. [Generación de Datos](#generación-de-datos)
 6. [Bugs](#bugs)
@@ -27,7 +29,7 @@
 * Abrir un terminal de comandos en el directorio del proyecto.
 * Usar el comando `npm install` para descargar todas las dependencias.
 * [Reconstruir los modelos](#reconstrucción-de-modelos) en caso de no tenerlos.
-* [Llenar la bd con datos de prueba]() para poder probar la API
+* [Llenar la bd con datos de prueba](#generación-de-datos) para poder probar la API
 * Configurar el archivo `./config/config.json` con las credenciales para development y production en caso de ser necesario.
 * Usar el comando `npm run devstart` para correr el proyecto.
 
@@ -71,6 +73,13 @@ Todos los parámetros solicitados en ciertos métodos HTTP deben ser enviados me
 |`put`|/guardia/:cedula|Actualiza el guardia con la cédula dada.|WIP|
 |`delete`|/guardia/:cedula|Elimina el guardia con la cédula dada en la bd.|None|
 
+### Dirección
+
+|Método|Ruta|Función|Parámetros|
+|------|----|-------|----------|
+|`get`|/direccion|Retorna todas las direcciones|None|
+|`post`|/direccion|Añade una instancia de dirección a la bd.|`calle_principal` `calle_secundaria` `ciudad` `provincia` `pais`|
+
 ### Urbanización
 
 |Método|Ruta|Función|Parámetros|
@@ -96,7 +105,7 @@ Todos los parámetros solicitados en ciertos métodos HTTP deben ser enviados me
 |Método|Ruta|Función|Parámetros|
 |------|----|-------|----------|
 |`get`|/pago|Retorna todos los pagos.|None|
-|`post`|/pago|Añade un pago asociada a la alícuota dada como parámetro en la bd.|WIP|
+|`post`|/pago/:alicuota|Añade un pago asociada a la alícuota dada como parámetro en la bd.|WIP|
 
 ### QR
 
@@ -104,6 +113,12 @@ Todos los parámetros solicitados en ciertos métodos HTTP deben ser enviados me
 |------|----|-------|----------|
 |`get`|/qr|Retorna todos los QR.|None|
 |`post`|/qr/:cedula|Añade un QR asociado al residente(cédula) dado.|`visitante` `placa`|
+
+### Token
+
+|Método|Ruta|Función|Parámetros|
+|------|----|-------|----------|
+|`post`|/token|Genera y guarda un jwt token.|`correo` `clave`|
 
 ## Reconstrucción de Modelos
 

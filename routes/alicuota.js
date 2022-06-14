@@ -24,10 +24,10 @@ router.get("/:cedula", (req, res, next) => {
   models.alicuota
     .findAll({ where: { cedula: req.params.cedula } })
     .then((alicuotas) => {
-      res.send(alicuotas);
+      res.status(200).send(alicuotas);
     })
     .catch((err) => {
-      res.status(200).send(err);
+      res.status(500).send(err);
     });
 });
 

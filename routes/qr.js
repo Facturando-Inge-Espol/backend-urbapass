@@ -55,7 +55,7 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/:cedula", (req, res, next) => {
-  ({ visitante, placa } = req.body);
+  const { visitante, placa } = req.body;
   uniqueID = uuid.v4();
   models.qr
     .create({
@@ -66,7 +66,7 @@ router.post("/:cedula", (req, res, next) => {
       fechaEmision: new Date().toLocaleString(),
     })
     .then((response) => {
-      res.status(200).send(uniqueID);
+      res.status(200).send({ uid: uniqueID });
     })
     .catch((err) => {
       res.status(400).send(err);
