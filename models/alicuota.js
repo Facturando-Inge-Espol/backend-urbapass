@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     estado: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.STRING(15),
       allowNull: false
     },
     valor: {

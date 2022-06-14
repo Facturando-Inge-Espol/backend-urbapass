@@ -11,6 +11,7 @@ var guardiaRouter = require("./routes/guardia");
 var alicuotaRouter = require("./routes/alicuota");
 var pagoRouter = require("./routes/pago");
 var qrRouter = require("./routes/qr");
+var urbanizacionRouter = require("./routes/urbanizacion");
 
 var app = express();
 app.use(cors());
@@ -28,5 +29,6 @@ app.use("/guardia", guardiaRouter);
 app.use("/alicuota", alicuotaRouter);
 app.use("/pago", pagoRouter);
 app.use("/qr", qrRouter);
+app.use("/urbanizacion", urbanizacionRouter);
 
 module.exports = app;

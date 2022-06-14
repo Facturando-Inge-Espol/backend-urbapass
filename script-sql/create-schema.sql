@@ -64,9 +64,8 @@ CREATE TABLE IF NOT EXISTS QR (
 	uid CHAR(36) NOT NULL PRIMARY KEY COMMENT "",
     emisor CHAR(10) NOT NULL COMMENT "",
     visitante CHAR(10) NOT NULL COMMENT "",
-    codigo VARCHAR(150) NOT NULL COMMENT "",
     placa VARCHAR(7) NOT NULL COMMENT "",
-    fechaEmision DATE NOT NULL COMMENT "",
+    fechaEmision DATETIME NOT NULL COMMENT "",
     CONSTRAINT qrEmiFK FOREIGN KEY (Emisor) REFERENCES Residente (Cedula),
     CONSTRAINT qrVisFK FOREIGN KEY (Visitante) REFERENCES Persona (Cedula)
 );

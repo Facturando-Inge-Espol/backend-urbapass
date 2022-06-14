@@ -59,9 +59,8 @@ router.put("/:cedula", (req, res, next) => {
 
 router.delete("/:cedula", (req, res, next) => {
   models.administrador
-    .findOne()
+    .destroy()
     .then((admin) => {
-      admin.destroy();
       res.status(200).send();
     })
     .catch((err) => {

@@ -9,6 +9,7 @@
    * [Residente](#residente)
    * [Administrador](#administrador)
    * [Guardia](#guardia)
+   * [Urbanización](#urbanización)
    * [Alicuota](#alicuotas)
    * [Pago](#pagos)
    * [QR](#qr)
@@ -70,14 +71,24 @@ Todos los parámetros solicitados en ciertos métodos HTTP deben ser enviados me
 |`put`|/guardia/:cedula|Actualiza el guardia con la cédula dada.|WIP|
 |`delete`|/guardia/:cedula|Elimina el guardia con la cédula dada en la bd.|None|
 
+### Urbanización
+
+|Método|Ruta|Función|Parámetros|
+|------|----|-------|----------|
+|`get`|/urbanizacion|Retorna todas las urbanizaciones.|None|
+|`post`|/urbanizacion|Añade una urbanización a la bd.|WIP|
+|`get`|/urbanizacion/:uid|Retorna la urbanizacion con la uid dada.|None|
+|`put`|/urbanizacion/:uid|Actualiza el urbanizacion con la uid dada.|WIP|
+|`delete`|/urbanizacion/:uid|Elimina el urbanizacion con la uid dada en la bd.|None|
+
 ### Alicuota
 
 |Método|Ruta|Función|Parámetros|
 |------|----|-------|----------|
 |`get`|/alicuota|Retorna todas las alicuotas.|None|
 |`put`|/alicuota|Actualiza el estado de la alicuota.|WIP|
-|`get`|/alicuota/:cedula|Retorna todas las alicuotas correspondiente al residente(cédula) dada.|None|
-|`post`|/alicuota/:cedula|Añade una alicuota asociada al residente(cédula) dada.|WIP|
+|`get`|/alicuota/:cedula|Retorna todas las alicuotas correspondiente al residente(cédula) dado.|None|
+|`post`|/alicuota/:cedula|Añade una alicuota asociada al residente(cédula) dado.|WIP|
 
 
 ### Pago
@@ -92,8 +103,7 @@ Todos los parámetros solicitados en ciertos métodos HTTP deben ser enviados me
 |Método|Ruta|Función|Parámetros|
 |------|----|-------|----------|
 |`get`|/qr|Retorna todos los QR.|None|
-|`delete`|/qr|Elimina el QR con UID dado como parámetro de la bd.|WIP|
-|`post`|/qr/:cedula|Añade un QR asociado al residente(cédula) dada en la bd.|WIP
+|`post`|/qr/:cedula|Añade un QR asociado al residente(cédula) dado.|`visitante` `placa`|
 
 ## Reconstrucción de Modelos
 
