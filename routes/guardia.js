@@ -59,7 +59,7 @@ router.post("/", async (req, res, next) => {
     "Urbanización no existe"
   );
   const uniqueCed = await verifyUnique(
-    await models.persona.findAll({ where: { cedula } }),
+    await models.usuario.findAll({ where: { cedula } }),
     "Cédula Duplicada"
   );
   const uniqueEmail = await verifyUnique(
@@ -91,7 +91,29 @@ router.post("/", async (req, res, next) => {
 
 router.get("/:cedula", (req, res, next) => {
   models.guardia
-    .findOne({ where: { cedula: req.params.cedula } })
+    .findOne({
+      include: {
+        model: models.usuario,
+        association: "info_usuario",
+        attributes: {
+          exclude: ["cedula", "urbanizacion"],
+        },
+        include: [
+          {
+            model: models.persona,
+            association: "info_persona",
+          },
+          {
+            model: models.urbanizacion,
+            association: "info_urbanizacion",
+            attributes: {
+              exclude: ["cuenta"],
+            },
+          },
+        ],
+      },
+      where: { cedula: req.params.cedula },
+    })
     .then((guardia) => {
       res.send(guardia);
     })
@@ -101,14 +123,27 @@ router.get("/:cedula", (req, res, next) => {
 });
 
 router.put("/:cedula", (req, res, next) => {
-  models.guardia.update(); //WIP
+  models.guardia
+    .update(
+      { correo, clave },
+      {
+        where: {
+          cedula: req.params.cedula,
+        },
+      }
+    )
+    .then((response) => {
+      res.status(200).send();
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
 });
 
 router.delete("/:cedula", (req, res, next) => {
   models.guardia
-    .findOne({ where: { cedula: req.params.cedula } })
+    .destroy({ where: { cedula: req.params.cedula } })
     .then((guardia) => {
-      guardia.destroy();
       res.status(200).send();
     })
     .catch((err) => {

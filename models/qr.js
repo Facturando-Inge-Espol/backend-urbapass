@@ -22,17 +22,12 @@ module.exports = function(sequelize, DataTypes) {
         key: 'cedula'
       }
     },
-    codigo: {
-      type: DataTypes.STRING(150),
-      allowNull: false,
-      unique: "codigo"
-    },
     placa: {
       type: DataTypes.STRING(7),
       allowNull: false
     },
     fechaEmision: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       allowNull: false
     }
   }, {
@@ -46,14 +41,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "uid" },
-        ]
-      },
-      {
-        name: "codigo",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "codigo" },
         ]
       },
       {
