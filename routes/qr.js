@@ -63,7 +63,7 @@ router.post("/:cedula", (req, res, next) => {
       emisor: req.params.cedula,
       visitante,
       placa,
-      fechaEmision: new Date().toLocaleString(),
+      fechaEmision: new Date().toISOString().replace("Z", ""),
     })
     .then((response) => {
       res.status(200).send({ uid: uniqueID });
