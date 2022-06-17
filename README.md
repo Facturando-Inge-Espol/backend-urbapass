@@ -15,8 +15,8 @@
    * [Pago](#pagos)
    * [QR](#qr)
    * [Token](#token)
-4. [Reconstrucción de Modelos](#reconstrucción-de-modelos)
-5. [Generación de Datos](#generación-de-datos)
+4. [Generación de Datos](#generación-de-datos)
+5. [Deprecated - Reconstrucción de Modelos](#reconstrucción-de-modelos)
 6. [Bugs](#bugs)
 7. [Autor](#autor)
 
@@ -28,8 +28,7 @@
 
 * Abrir un terminal de comandos en el directorio del proyecto.
 * Usar el comando `npm install` para descargar todas las dependencias.
-* [Reconstruir los modelos](#reconstrucción-de-modelos) en caso de no tenerlos.
-* [Llenar la bd con datos de prueba](#generación-de-datos) para poder probar la API
+* [Crear la bd y generar datos](#generación-de-datos) para poder probar la API.
 * Configurar el archivo `./config/config.json` con las credenciales para development y production en caso de ser necesario.
 * Usar el comando `npm run devstart` para correr el proyecto.
 
@@ -112,7 +111,7 @@ Todos los parámetros solicitados en ciertos métodos HTTP deben ser enviados me
 |Método|Ruta|Función|Parámetros|
 |------|----|-------|----------|
 |`get`|/qr|Retorna todos los QR.|None|
-|`post`|/qr/:cedula|Añade un QR asociado al residente(cédula) dado.|`visitante` `placa`|
+|`post`|/qr/:cedula|Añade un QR asociado al residente(cédula) dado.|`visitante` `nombre` `apellido` `placa`|
 
 ### Token
 
@@ -120,7 +119,15 @@ Todos los parámetros solicitados en ciertos métodos HTTP deben ser enviados me
 |------|----|-------|----------|
 |`post`|/token|Genera y guarda un jwt token.|`correo` `clave`|
 
-## Reconstrucción de Modelos
+## Generación de Datos
+
+Para generar el schema de la base de datos abre `./script-sql/create-schema.sql` en MySQL Workbench y ejecuta el código dentro.
+
+Una vez tengas creada el *schema* de la base de datos **UrbaPassDB** generaremos datos de prueba para probar la API. Abre el archivo `./script-sql/insert-data.sql` en MySQL Workbench y ejecuta el código dentro. 
+
+De esta manera se creará una cantidad moderada de datos de prueba. No olvides configurar el archivo `./config/config.json` con tus credenciales para poder conectarte a la base de datos.
+
+## Deprecated - Reconstrucción de Modelos
 
 Abre `./script-sql/create-schema.sql` en MySQL Workbench y ejecuta el código dentro. Esto creará la base de datos necesaria para los modelos en caso de no tenerlos en el proyecto.
 
@@ -138,12 +145,6 @@ sequelize-auto -h <host> -d <database> -u <user> -x <password> -p <port> -T <ski
 - Especifique la contraseña del usuario después del parámetro -x \<password>. Reemplazar con su **contraseña para la conexión MySQL**.
 - Especifique el puerto después del parámetro -p \<port>. Generalmente **3306**.
 - Especifique las tablas a omitir después del parámetro -T \<skiptables>. Reemplazar con **sequelizemeta**.
-
-## Generación de Datos
-
-Una vez tengas creada el *schema* de la base de datos **UrbaPassDB** generaremos datos de prueba para probar la API. Abre el archivo `./script-sql/insert-data.sql` en MySQL Workbench y ejecuta el código dentro. 
-
-De esta manera se creará una cantidad moderada de datos de prueba. No olvides configurar el archivo `./config/config.json` con tus credenciales para poder conectarte a la base de datos.
 
 ## Bugs
 

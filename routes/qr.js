@@ -6,6 +6,13 @@ var initModels = require("../models/init-models");
 var models = initModels(sequelize);
 const uuid = require("uuid");
 
+const verifyExistence = async (existence) => {
+  if (existence.length == 1) {
+    return false;
+  }
+  return true;
+};
+
 router.get("/", (req, res, next) => {
   models.qr
     .findAll({
@@ -54,10 +61,20 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.post("/:cedula", (req, res, next) => {
-  const { visitante, placa } = req.body;
+router.post("/:cedula", async (req, res, next) => {
+  const { visitante, nombre, apellido, placa } = req.body;
   uniqueID = uuid.v4();
-  models.qr
+  const existeVisitante = await verifyExistence(
+    models.persona.findAll({ where: { cedula: visitante } })
+  );
+  if (!existeVisitante) {
+    await models.persona
+      .create({ cedula: visitante, nombre, apellido })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
+  }
+  await models.qr
     .create({
       uid: uniqueID,
       emisor: req.params.cedula,
