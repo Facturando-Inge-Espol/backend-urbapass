@@ -71,11 +71,13 @@ router.post("/:cedula", async (req, res, next) => {
   await models.persona
     .findOne({ where: { cedula: visitante } })
     .then((vist) => {
-      models.persona
-        .create({ cedula: visitante, nombre, apellido })
-        .catch((err) => {
-          res.status(500).send(err);
-        });
+      if (!vist) {
+        models.persona
+          .create({ cedula: visitante, nombre, apellido })
+          .catch((err) => {
+            res.status(500).send(err);
+          });
+      }
     });
   await models.qr
     .create({
