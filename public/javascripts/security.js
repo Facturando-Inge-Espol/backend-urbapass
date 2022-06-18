@@ -23,16 +23,19 @@ function authenticateToken(req, res, next) {
   });
 }
 
-// function verifyLogin(req, res, next) {
-//   const token = req.cookies.token;
+function decodeToken(req, res, next) {
+  const token = req.cookies.token;
 
-//   jwt.verify(token, secret, (err, user) => {
-//     if (err) return next();
-//     res.redirect("/admin");
-//   });
-// }
+  jwt.verify(token, secret, (err, user) => {
+    if (err) {
+      res.status(500).send({ error: "Ta mal flaco" });
+    }
+    res.status(200).send({ user });
+  });
+}
 
 module.exports = {
   generateAccessToken,
   authenticateToken,
+  decodeToken,
 };
