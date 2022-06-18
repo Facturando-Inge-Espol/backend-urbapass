@@ -10,13 +10,13 @@ module.exports = function(sequelize, DataTypes) {
         key: 'cedula'
       }
     },
-    direccion: {
-      type: DataTypes.CHAR(36),
-      allowNull: false,
-      references: {
-        model: 'direccion',
-        key: 'uid'
-      }
+    manzana: {
+      type: DataTypes.CHAR(6),
+      allowNull: false
+    },
+    villa: {
+      type: DataTypes.CHAR(6),
+      allowNull: false
     }
   }, {
     sequelize,
@@ -32,10 +32,12 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "resDirFK",
+        name: "manVil",
+        unique: true,
         using: "BTREE",
         fields: [
-          { name: "direccion" },
+          { name: "manzana" },
+          { name: "villa" },
         ]
       },
     ]
