@@ -18,6 +18,11 @@ module.exports = function(sequelize, DataTypes) {
         key: 'uid'
       }
     },
+    user: {
+      type: DataTypes.STRING(16),
+      allowNull: false,
+      unique: "user"
+    },
     correo: {
       type: DataTypes.STRING(30),
       allowNull: false,
@@ -38,6 +43,14 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "cedula" },
+        ]
+      },
+      {
+        name: "user",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "user" },
         ]
       },
       {

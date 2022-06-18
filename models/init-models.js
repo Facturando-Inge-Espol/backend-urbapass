@@ -34,14 +34,6 @@ function initModels(sequelize) {
     as: "info_urbanizacion",
     foreignKey: "cuenta",
   });
-  residente.belongsTo(direccion, {
-    as: "info_direccion",
-    foreignKey: "direccion",
-  });
-  direccion.hasMany(residente, {
-    as: "info_residente",
-    foreignKey: "direccion",
-  });
   urbanizacion.belongsTo(direccion, {
     as: "info_direccion",
     foreignKey: "direccion",

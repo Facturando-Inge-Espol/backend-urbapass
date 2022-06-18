@@ -35,7 +35,24 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.get("/:correo", (req, res, next) => {
+router.get("/:cedula", (req, res, next) => {
+  models.usuario
+    .findOne({
+      include: {
+        model: models.persona,
+        association: "info_persona",
+      },
+      where: { cedula: req.params.cedula },
+    })
+    .then((user) => {
+      res.status(200).send(user);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
+router.get("/correo/:correo", (req, res, next) => {
   models.usuario
     .findOne({
       include: {
@@ -43,6 +60,23 @@ router.get("/:correo", (req, res, next) => {
         association: "info_persona",
       },
       where: { correo: req.params.correo },
+    })
+    .then((user) => {
+      res.status(200).send(user);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
+router.get("/user/:user", (req, res, next) => {
+  models.usuario
+    .findOne({
+      include: {
+        model: models.persona,
+        association: "info_persona",
+      },
+      where: { user: req.params.user },
     })
     .then((user) => {
       res.status(200).send(user);

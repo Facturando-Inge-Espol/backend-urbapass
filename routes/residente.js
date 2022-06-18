@@ -60,16 +60,21 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  const { cedula, nombre, apellido, urbano, correo, clave, dir } = req.body;
+  const {
+    cedula,
+    nombre,
+    apellido,
+    urbano,
+    user,
+    correo,
+    clave,
+    manzana,
+    villa,
+  } = req.body;
   const hasUrba = await verifyExistence(
     models.urbanizacion,
     urbano,
     "Urbanización no existe"
-  );
-  const hasDir = await verifyExistence(
-    models.direccion,
-    dir,
-    "Dirección no existe"
   );
   const uniqueCed = await verifyUnique(
     await models.usuario.findAll({ where: { cedula } }),
@@ -79,18 +84,18 @@ router.post("/", async (req, res, next) => {
     await models.usuario.findAll({ where: { correo } }),
     "Correo Duplicado"
   );
-  errores = [hasUrba, hasDir, uniqueCed, uniqueEmail];
+  errores = [hasUrba, uniqueCed, uniqueEmail];
   if (getAttribute(errores, "correcto").every((bool) => bool)) {
     await models.persona.create({ cedula, nombre, apellido }).catch((err) => {
       res.status(500).send(err);
     });
     await models.usuario
-      .create({ cedula, urbanizacion: urbano, correo, clave })
+      .create({ cedula, urbanizacion: urbano, user, correo, clave })
       .catch((err) => {
         res.status(500).send(err);
       });
     await models.residente
-      .create({ cedula, direccion: dir })
+      .create({ cedula, manzana, villa })
       .then((response) => {
         res.status(200).send(response);
       })

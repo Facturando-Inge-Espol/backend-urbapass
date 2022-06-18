@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS Urbanizacion (
 CREATE TABLE IF NOT EXISTS Usuario (
 	cedula CHAR(10) NOT NULL PRIMARY KEY COMMENT "",
     urbanizacion CHAR(36) NOT NULL COMMENT "",
+    user VARCHAR(16) NOT NULL UNIQUE COMMENT "",
     correo VARCHAR(30) NOT NULL UNIQUE COMMENT "",
     clave VARCHAR(25) NOT NULL COMMENT "",
     CONSTRAINT usrUrbFK FOREIGN KEY (Urbanizacion) REFERENCES Urbanizacion (UID),
@@ -45,8 +46,9 @@ CREATE TABLE IF NOT EXISTS Usuario (
 
 CREATE TABLE IF NOT EXISTS Residente (
 	cedula CHAR(10) NOT NULL PRIMARY KEY COMMENT "",
-    direccion CHAR(36) NOT NULL COMMENT "",
-    CONSTRAINT resDirFK FOREIGN KEY (Direccion) REFERENCES Direccion (UID),
+    manzana CHAR(6) NOT NULL COMMENT "",
+    villa CHAR(6) NOT NULL COMMENT "",
+    CONSTRAINT manVil UNIQUE (manzana, villa),
     CONSTRAINT resCedFK FOREIGN KEY (Cedula) REFERENCES Usuario (Cedula)
 );
 

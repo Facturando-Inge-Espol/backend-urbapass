@@ -41,13 +41,16 @@ Todos los parámetros solicitados en ciertos métodos HTTP deben ser enviados me
 |Método|Ruta|Función|Parámetros|
 |------|----|-------|----------|
 |`get`|/usuario|Retorna todos los usuarios.|None|
+|`get`|/usuario/:cedula|Retorna el usuario con la cédula dada.|None|
+|`get`|/usuario/user/:user|Retorna el usuario con el user dado.|None|
+|`get`|/usuario/correo/:correo|Retorna el usuario con el correo dado.|None|
 
 ### Residente
 
 |Método|Ruta|Función|Parámetros|
 |------|----|-------|----------|
 |`get`|/residente|Retorna todos los residentes.|None|
-|`post`|/residente|Añade un residente a la db.|`cedula` `nombre` `apellido` `urbano` `correo` `clave` `dir`|
+|`post`|/residente|Añade un residente a la db.|`cedula` `nombre` `apellido` `urbano` `user` `correo` `clave` `manzana` `villa`|
 |`get`|/residente/:cedula|Retorna el residente con la cédula dada.|None|
 |`put`|/residente/:cedula|Actualiza el residente con la cédula dada en la db.|WIP|
 |`delete`|/residente/:cedula|Elimina el residente con la cédula dada en la db.|None|
@@ -67,7 +70,7 @@ Todos los parámetros solicitados en ciertos métodos HTTP deben ser enviados me
 |Método|Ruta|Función|Parámetros|
 |------|----|-------|----------|
 |`get`|/guardia|Retorna todos los guardias.|None|
-|`post`|/guardia|Añade un guardia a la bd.|`cedula` `nombre` `apellido` `urbano` `correo` `clave`|
+|`post`|/guardia|Añade un guardia a la bd.|`cedula` `nombre` `apellido` `urbano` `user` `correo` `clave`|
 |`get`|/guardia/:cedula|Retorna el guardia con la cédula dada.|None|
 |`put`|/guardia/:cedula|Actualiza el guardia con la cédula dada.|WIP|
 |`delete`|/guardia/:cedula|Elimina el guardia con la cédula dada en la bd.|None|
@@ -118,7 +121,8 @@ Todos los parámetros solicitados en ciertos métodos HTTP deben ser enviados me
 
 |Método|Ruta|Función|Parámetros|
 |------|----|-------|----------|
-|`post`|/token|Genera y guarda un jwt token.|`correo` `clave`|
+|`get`|/token|Retorna la información decodificada del jwt token actual.|None|
+|`post`|/token|Genera y guarda un jwt token.|`user` `clave`|
 
 ## Generación de Datos
 
