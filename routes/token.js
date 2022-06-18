@@ -3,8 +3,12 @@ var router = express.Router();
 
 const sequelize = require("../models/index.js").sequelize;
 var initModels = require("../models/init-models");
-const { generateAccessToken } = require("../public/javascripts/security.js");
+const { generateAccessToken, decodeToken } = require("../public/javascripts/security.js");
 var models = initModels(sequelize);
+
+router.get("/", (req, res, next) => {
+  decodeToken(req, res, next);
+})
 
 router.post("/", async (req, res, next) => {
   const { correo, clave } = req.body;

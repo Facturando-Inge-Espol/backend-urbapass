@@ -21,6 +21,10 @@ router.get("/", (req, res, next) => {
           model: models.residente,
           association: "info_residente",
         },
+        {
+          model: models.persona,
+          association: "info_persona",
+        },
       ],
     })
     .then((usuarios) => {
@@ -28,6 +32,23 @@ router.get("/", (req, res, next) => {
     })
     .catch((err) => {
       res.status(400).send(err);
+    });
+});
+
+router.get("/:correo", (req, res, next) => {
+  models.usuario
+    .findOne({
+      include: {
+        model: models.persona,
+        association: "info_persona",
+      },
+      where: { correo: req.params.correo },
+    })
+    .then((user) => {
+      res.status(200).send(user);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
     });
 });
 
