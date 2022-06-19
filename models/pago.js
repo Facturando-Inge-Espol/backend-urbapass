@@ -15,6 +15,10 @@ module.exports = function(sequelize, DataTypes) {
       },
       unique: "pagAliFK"
     },
+    image: {
+      type: DataTypes.BLOB,
+      allowNull: false
+    },
     fecha_pago: {
       type: DataTypes.DATEONLY,
       allowNull: false

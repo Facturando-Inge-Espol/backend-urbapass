@@ -4,6 +4,7 @@ var router = express.Router();
 const sequelize = require("../models/index.js").sequelize;
 var initModels = require("../models/init-models");
 var models = initModels(sequelize);
+const upload = require("../public/javascripts/upload");
 
 router.get("/", (req, res, next) => {
   models.pago
@@ -31,7 +32,7 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.post("/", (req, res, next) => {
+router.post("/:alicuota", upload.single, (req, res, next) => {
   models.pago
     .create(req.body)
     .then((response) => {

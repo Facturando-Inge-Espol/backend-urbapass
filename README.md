@@ -16,7 +16,7 @@
    * [QR](#qr)
    * [Token](#token)
 4. [Generación de Datos](#generación-de-datos)
-5. [Deprecated - Reconstrucción de Modelos](#reconstrucción-de-modelos)
+5. [Deprecated - Reconstrucción de Modelos](#deprecated---reconstrucción-de-modelos)
 6. [Bugs](#bugs)
 7. [Autor](#autor)
 
