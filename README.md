@@ -126,7 +126,7 @@ El imgsrc debe ser renderizado de la siguiente forma:
 |Método|Ruta|Función|Parámetros|
 |------|----|-------|----------|
 |`get`|/qr|Retorna todos los QR.|None|
-|`get`|/qr:cedula|Retorna todos los QR creados por un residente(cédula) dado.|None|
+|`get`|/qr/:cedula|Retorna todos los QR creados por un residente(cédula) dado.|None|
 |`post`|/qr/:cedula|Añade un QR asociado al residente(cédula) dado.|`visitante` `nombre` `apellido` `placa`|
 
 ### Token
