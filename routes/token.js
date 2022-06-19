@@ -9,18 +9,18 @@ const {
 } = require("../public/javascripts/security.js");
 var models = initModels(sequelize);
 
-router.get("/", (req, res, next) => {
+router.post("/decode", (req, res, next) => {
   decodeToken(req, res, next);
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/login", async (req, res, next) => {
   const { user, clave } = req.body;
   validacion = await models.usuario.findOne({
     include: {
       model: models.administrador,
       association: "info_administrador",
     },
-    where: { correo, clave },
+    where: { user, clave },
   });
   if (validacion) {
     const token = generateAccessToken({ user });

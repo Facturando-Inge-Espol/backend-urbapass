@@ -24,7 +24,7 @@ function authenticateToken(req, res, next) {
 }
 
 function decodeToken(req, res, next) {
-  const token = req.cookies.token;
+  const token = req.cookies.token || req.body.token;
 
   jwt.verify(token, secret, (err, user) => {
     if (err) {

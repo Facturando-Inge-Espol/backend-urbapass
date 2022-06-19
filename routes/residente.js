@@ -4,27 +4,11 @@ var router = express.Router();
 const sequelize = require("../models/index.js").sequelize;
 var initModels = require("../models/init-models");
 var models = initModels(sequelize);
-
-const verifyExistence = async (modelo, uid, mensajeError) => {
-  const existencia = await modelo.findAll({ where: { uid } });
-  if (existencia.length == 1) {
-    return { correcto: true, error: null };
-  }
-  return { correcto: false, error: mensajeError };
-};
-
-const verifyUnique = async (unico, mensajeError) => {
-  if (unico.length == 1) {
-    return { correcto: false, error: mensajeError };
-  }
-  return { correcto: true, error: null };
-};
-
-const getAttribute = (array, atributo) => {
-  res = [];
-  array.forEach((item) => res.push(item[atributo]));
-  return res;
-};
+const {
+  verifyExistence,
+  verifyUnique,
+  getAttribute,
+} = require("../public/javascripts/helper");
 
 /* Getting all the residentes from the database. */
 router.get("/", (req, res, next) => {
@@ -40,6 +24,9 @@ router.get("/", (req, res, next) => {
           {
             model: models.persona,
             association: "info_persona",
+            attributes: {
+              exclude: ["cedula"],
+            },
           },
           {
             model: models.urbanizacion,
@@ -120,6 +107,9 @@ router.get("/:cedula", (req, res, next) => {
           {
             model: models.persona,
             association: "info_persona",
+            attributes: {
+              exclude: ["cedula"],
+            },
           },
           {
             model: models.urbanizacion,
