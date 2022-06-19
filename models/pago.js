@@ -15,8 +15,13 @@ module.exports = function(sequelize, DataTypes) {
       },
       unique: "pagAliFK"
     },
+    valido: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: 0
+    },
     image: {
-      type: DataTypes.BLOB,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     fecha_pago: {

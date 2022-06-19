@@ -102,8 +102,3 @@ VALUES
 	("a2dafc7d-504f-4cb7-9b33-7f8d1de3d3ed", "SIN PAGAR", 120.25, "2022-04-01", "89793"),
 	("1390db9b-0e23-4831-a2f5-62d2cc02cdcc", "SIN PAGAR", 120.25, "2022-04-01", "89793");
 
-INSERT INTO Pago
-VALUES 
-	("e92e9f14-3f29-45a8-b798-e3e8d21eeff1", "59989b9f-7b32-4637-b7ae-d1b52d2b2a0d", "2022-04-30"),
-	("9672d24d-9c5b-4a49-95f6-e4dc80c428a9", "b41d526d-5ab7-47cb-94de-187d28610fbb", "2022-04-29");
-

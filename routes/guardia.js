@@ -4,20 +4,7 @@ var router = express.Router();
 const sequelize = require("../models/index.js").sequelize;
 var initModels = require("../models/init-models");
 var models = initModels(sequelize);
-
-const verificarExistencia = async (modelo, uid, mensajeError) => {
-  const existencia = await modelo.findAll({ where: { uid } });
-  if (existencia.length == 1) {
-    return { existe: true, error: null };
-  }
-  return { existe: false, error: mensajeError };
-};
-
-const getAttribute = (array, atributo) => {
-  res = [];
-  array.forEach((item) => res.push(item[atributo]));
-  return res;
-};
+const {verifyExistence, getAttribute} = require("../public/javascripts/helper")
 
 router.get("/", (req, res, next) => {
   models.guardia
@@ -32,6 +19,9 @@ router.get("/", (req, res, next) => {
           {
             model: models.persona,
             association: "info_persona",
+            attributes: {
+              exclude: ["cedula"]
+            }
           },
           {
             model: models.urbanizacion,
@@ -53,7 +43,7 @@ router.get("/", (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   const { cedula, nombre, apellido, urbano, user, correo, clave } = req.body;
-  const hasUrba = await verificarExistencia(
+  const hasUrba = await verifyExistence(
     models.urbanizacion,
     urbano,
     "Urbanización no existe"
@@ -85,7 +75,7 @@ router.post("/", async (req, res, next) => {
         res.status(500).send(err);
       });
   } else {
-    res.status(500).send({ errores: getAttribute(errores, "err") });
+    res.status(500).send({ errores: getAttribute(errores, "error") });
   }
 });
 
@@ -102,6 +92,9 @@ router.get("/:cedula", (req, res, next) => {
           {
             model: models.persona,
             association: "info_persona",
+            attributes: {
+              exclude: ["cedula"],
+            },
           },
           {
             model: models.urbanizacion,

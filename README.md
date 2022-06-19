@@ -34,7 +34,7 @@
 
 ## Rutas
 
-Todos los parámetros solicitados en ciertos métodos HTTP deben ser enviados mediante el body del requerimiento en formato JSON.
+La mayoría de los parámetros solicitados en ciertos métodos HTTP deben ser enviados mediante el body del requerimiento en formato JSON.
 
 ### Usuario
 
@@ -104,10 +104,20 @@ Todos los parámetros solicitados en ciertos métodos HTTP deben ser enviados me
 
 ### Pago
 
+El voucher debe ser enviado como una carga de archivo de imagen con encoding `multipart/form-data` y el name tag debe ser igual a `voucher`. Mirar `./public/views/testpost.html` para ver un ejemplo.
+
+El imgsrc debe ser renderizado de la siguiente forma:
+
+```html
+<img src="data:image/<formato>;base64,<imgsrc>">
+<img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQAB...">
+```
+
 |Método|Ruta|Función|Parámetros|
 |------|----|-------|----------|
 |`get`|/pago|Retorna todos los pagos.|None|
-|`post`|/pago/:alicuota|Añade un pago asociada a la alícuota dada como parámetro en la bd.|WIP|
+|`get`|/pago/:alicuota|Retorna el pago asociado a la alícuota dada incluyendo el imgsrc para renderizar el comprobante|None|
+|`post`|/pago/:alicuota|Añade un pago asociada a la alícuota dada.|`voucher`|
 
 ### QR
 
@@ -121,8 +131,8 @@ Todos los parámetros solicitados en ciertos métodos HTTP deben ser enviados me
 
 |Método|Ruta|Función|Parámetros|
 |------|----|-------|----------|
-|`get`|/token|Retorna la información decodificada del jwt token actual.|None|
-|`post`|/token|Genera y guarda un jwt token.|`user` `clave`|
+|`get`|/token/decode|Retorna la información decodificada del jwt token actual.|None|
+|`post`|/token/login|Genera y guarda un jwt token.|`user` `clave`|
 
 ## Generación de Datos
 
@@ -138,7 +148,7 @@ Abre `./script-sql/create-schema.sql` en MySQL Workbench y ejecuta el código de
 
 Abre una terminal de comandos en el directorio del proyecto y ejecuta el siguiente comando:
 
-```
+```bash
 sequelize-auto -h <host> -d <database> -u <user> -x <password> -p <port> -T <skiptables>
 ```
 

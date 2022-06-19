@@ -20,7 +20,7 @@ router.post("/login", async (req, res, next) => {
       model: models.administrador,
       association: "info_administrador",
     },
-    where: { correo, clave },
+    where: { user, clave },
   });
   if (validacion) {
     const token = generateAccessToken({ user });

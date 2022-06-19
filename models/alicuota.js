@@ -8,11 +8,12 @@ module.exports = function(sequelize, DataTypes) {
     },
     estado: {
       type: DataTypes.STRING(15),
-      allowNull: false
+      allowNull: false,
+      defaultValue: "Sin Pagar"
     },
     valor: {
       type: DataTypes.FLOAT,
-      allowNull: false
+      allowNull: true
     },
     fecha_inicio: {
       type: DataTypes.DATEONLY,

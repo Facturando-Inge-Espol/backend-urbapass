@@ -19,6 +19,9 @@ router.get("/", (req, res, next) => {
           {
             model: models.persona,
             association: "info_persona",
+            attributes: {
+              exclude: ["cedula"],
+            },
           },
           {
             model: models.urbanizacion,
@@ -44,7 +47,32 @@ router.post("/", (req, res, next) => {
 
 router.get("/:cedula", (req, res, next) => {
   models.administrador
-    .findOne({ where: { cedula: req.params.cedula } })
+    .findOne({
+      include: {
+        model: models.usuario,
+        association: "info_usuario",
+        attributes: {
+          exclude: ["cedula", "urbanizacion"],
+        },
+        include: [
+          {
+            model: models.persona,
+            association: "info_persona",
+            attributes: {
+              exclude: ["cedula"],
+            },
+          },
+          {
+            model: models.urbanizacion,
+            association: "info_urbanizacion",
+            attributes: {
+              exclude: ["cuenta"],
+            },
+          },
+        ],
+      },
+      where: { cedula: req.params.cedula },
+    })
     .then((admin) => {
       res.send(admin);
     })
