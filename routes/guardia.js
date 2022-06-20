@@ -4,7 +4,7 @@ var router = express.Router();
 const sequelize = require("../models/index.js").sequelize;
 var initModels = require("../models/init-models");
 var models = initModels(sequelize);
-const {verifyExistence, getAttribute} = require("../public/javascripts/helper")
+const {verifyExistence, getAttribute, verifyUnique} = require("../public/javascripts/helper")
 
 router.get("/", (req, res, next) => {
   models.guardia
@@ -62,14 +62,14 @@ router.post("/", async (req, res, next) => {
       res.status(500).send(err);
     });
     await models.usuario
-      .create({ cedula, urbanizacion, user, correo, clave })
+      .create({ cedula, urbanizacion:urbano, user, correo, clave })
       .catch((err) => {
         res.status(500).send(err);
       });
     await models.guardia
       .create({ cedula })
       .then((response) => {
-        res.status(200).send(response);
+      res.status(200).send(response);
       })
       .catch((err) => {
         res.status(500).send(err);
