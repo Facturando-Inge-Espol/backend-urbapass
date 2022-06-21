@@ -11,7 +11,7 @@ const {
   verifyExistence,
   getAttribute,
 } = require("../public/javascripts/helper");
-const { bool } = require("sharp");
+const pago = require("../models/pago.js");
 
 router.get("/", (req, res, next) => {
   models.pago
@@ -69,7 +69,6 @@ router.post("/:alicuota", upload.single("voucher"), async (req, res, next) => {
     "Alicuota no existe"
   );
   errores = [hasAlicuota];
-  console.log(errores)
   if (getAttribute(errores, "correcto").every((bool) => bool)) {
     await models.pago
       .create({
@@ -98,6 +97,58 @@ router.post("/:alicuota", upload.single("voucher"), async (req, res, next) => {
       });
   } else {
     res.status(500).send({ errores: getAttribute(errores, "error") });
+  }
+});
+
+router.put("/:alicuota", (req, res, next) => {
+  const { valido } = req.body;
+  models.pago
+    .update(
+      {
+        where: { alicuota: req.params.alicuota },
+      },
+      {
+        valido,
+      }
+    )
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+  if (valido) {
+    models.alicuota
+      .update(
+        {
+          where: { uid: req.params.alicuota },
+        },
+        {
+          estado: "Pagado",
+        }
+      )
+      .then((response) => {
+        res.status(200).send(response);
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
+  } else {
+    models.alicuota
+      .update(
+        {
+          where: { uid: req.params.alicuota },
+        },
+        {
+          estado: "Pago inválido",
+        }
+      )
+      .then((response) => {
+        res.status(200).send(response);
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
   }
 });
 

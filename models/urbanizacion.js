@@ -11,15 +11,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       unique: "nombre"
     },
-    cuenta: {
-      type: DataTypes.CHAR(36),
-      allowNull: false,
-      references: {
-        model: 'cuentabancaria',
-        key: 'uid'
-      },
-      unique: "urbCtaFK"
-    },
     direccion: {
       type: DataTypes.CHAR(36),
       allowNull: false,
@@ -53,14 +44,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "nombre" },
-        ]
-      },
-      {
-        name: "cuenta",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "cuenta" },
         ]
       },
       {

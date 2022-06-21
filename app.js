@@ -13,6 +13,7 @@ var pagoRouter = require("./routes/pago");
 var qrRouter = require("./routes/qr");
 var urbanizacionRouter = require("./routes/urbanizacion");
 var tokenRouter = require("./routes/token");
+var cuentaRouter = require("./routes/cuentaBancaria");
 
 var app = express();
 app.use(cors());
@@ -32,5 +33,6 @@ app.use("/pago", pagoRouter);
 app.use("/qr", qrRouter);
 app.use("/urbanizacion", urbanizacionRouter);
 app.use("/token", tokenRouter);
+app.use("/cuenta", cuentaRouter);
 
 module.exports = app;
