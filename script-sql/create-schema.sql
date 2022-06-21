@@ -17,21 +17,21 @@ CREATE TABLE IF NOT EXISTS Persona (
     apellido VARCHAR(20) NOT NULL COMMENT 'APELLIDO DEL PADRE DE LA PERSONA'
 );
 
-CREATE TABLE IF NOT EXISTS CuentaBancaria (
-	uid CHAR(36) NOT NULL PRIMARY KEY COMMENT "",
-    numero VARCHAR(14) NOT NULL COMMENT "",
-    nombreOwner CHAR(10) NOT NULL COMMENT "",
-    nombreBanco VARCHAR(40) NOT NULL COMMENT ""
-);
-
 CREATE TABLE IF NOT EXISTS Urbanizacion (
 	uid CHAR(36) NOT NULL PRIMARY KEY COMMENT "",
     nombre VARCHAR(30) NOT NULL UNIQUE COMMENT "",
-    cuenta CHAR(36) NOT NULL UNIQUE COMMENT "",
     direccion CHAR(36) NOT NULL UNIQUE COMMENT "",
     ruc CHAR(13) NOT NULL UNIQUE COMMENT "",
-    CONSTRAINT urbCtaFK FOREIGN KEY (Cuenta) REFERENCES CuentaBancaria (UID),
-    CONSTRAINT urbDirFK FOREIGN KEY (Direccion) REFERENCES Direccion (UID)
+    CONSTRAINT urbDirFK FOREIGN KEY (direccion) REFERENCES direccion (UID)
+);
+
+CREATE TABLE IF NOT EXISTS CuentaBancaria (
+	uid CHAR(36) NOT NULL PRIMARY KEY COMMENT "",
+    numero VARCHAR(14) NOT NULL COMMENT "",
+    urbanizacion CHAR(36) NOT NULL COMMENT "",
+    nombre_dueno VARCHAR(30) NOT NULL COMMENT "",
+    nombre_banco VARCHAR(40) NOT NULL COMMENT "",
+    CONSTRAINT ctaUrb FOREIGN KEY (urbanizacion) REFERENCES urbanizacion (uid)
 );
 
 CREATE TABLE IF NOT EXISTS Usuario (
@@ -40,8 +40,8 @@ CREATE TABLE IF NOT EXISTS Usuario (
     user VARCHAR(16) NOT NULL UNIQUE COMMENT "",
     correo VARCHAR(30) NOT NULL UNIQUE COMMENT "",
     clave VARCHAR(25) NOT NULL COMMENT "",
-    CONSTRAINT usrUrbFK FOREIGN KEY (Urbanizacion) REFERENCES Urbanizacion (UID),
-    CONSTRAINT usrCedFK FOREIGN KEY (Cedula) REFERENCES Persona (Cedula)
+    CONSTRAINT usrUrbFK FOREIGN KEY (urbanizacion) REFERENCES urbanizacion (UID),
+    CONSTRAINT usrCedFK FOREIGN KEY (cedula) REFERENCES Persona (cedula)
 );
 
 CREATE TABLE IF NOT EXISTS Residente (
@@ -49,17 +49,17 @@ CREATE TABLE IF NOT EXISTS Residente (
     manzana CHAR(6) NOT NULL COMMENT "",
     villa CHAR(6) NOT NULL COMMENT "",
     CONSTRAINT manVil UNIQUE (manzana, villa),
-    CONSTRAINT resCedFK FOREIGN KEY (Cedula) REFERENCES Usuario (Cedula)
+    CONSTRAINT resCedFK FOREIGN KEY (cedula) REFERENCES Usuario (cedula)
 );
 
 CREATE TABLE IF NOT EXISTS Guardia (
 	cedula CHAR(10) NOT NULL PRIMARY KEY COMMENT "",
-    CONSTRAINT grdCedFK FOREIGN KEY (Cedula) REFERENCES Usuario (Cedula)
+    CONSTRAINT grdCedFK FOREIGN KEY (cedula) REFERENCES Usuario (cedula)
 );
 
 CREATE TABLE IF NOT EXISTS Administrador (
 	cedula CHAR(10) NOT NULL PRIMARY KEY COMMENT "",
-    CONSTRAINT admCedFK FOREIGN KEY (Cedula) REFERENCES Usuario (Cedula)
+    CONSTRAINT admCedFK FOREIGN KEY (cedula) REFERENCES Usuario (cedula)
 );
 
 CREATE TABLE IF NOT EXISTS QR (
@@ -68,8 +68,8 @@ CREATE TABLE IF NOT EXISTS QR (
     visitante CHAR(10) NOT NULL COMMENT "",
     placa VARCHAR(7) NOT NULL COMMENT "",
     fechaEmision DATETIME NOT NULL COMMENT "",
-    CONSTRAINT qrEmiFK FOREIGN KEY (Emisor) REFERENCES Residente (Cedula),
-    CONSTRAINT qrVisFK FOREIGN KEY (Visitante) REFERENCES Persona (Cedula)
+    CONSTRAINT qrEmiFK FOREIGN KEY (emisor) REFERENCES residente (cedula),
+    CONSTRAINT qrVisFK FOREIGN KEY (visitante) REFERENCES Persona (cedula)
 );
 
 CREATE TABLE IF NOT EXISTS Alicuota (
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS Alicuota (
     valor FLOAT(8) COMMENT "",
     fecha_inicio DATE NOT NULL COMMENT "",
     residente CHAR(10) NOT NULL COMMENT "",
-    CONSTRAINT aliResFK FOREIGN KEY (Residente) REFERENCES Residente (Cedula)
+    CONSTRAINT aliResFK FOREIGN KEY (residente) REFERENCES residente (Cedula)
 );
 
 CREATE TABLE IF NOT EXISTS Pago (
@@ -87,5 +87,5 @@ CREATE TABLE IF NOT EXISTS Pago (
     valido BOOLEAN DEFAULT FALSE COMMENT "",
     image TEXT NOT NULL,
     fecha_pago DATE NOT NULL COMMENT "",
-    CONSTRAINT pagAliFK FOREIGN KEY (Alicuota) REFERENCES Alicuota (UID)
+    CONSTRAINT pagAliFK FOREIGN KEY (alicuota) REFERENCES alicuota (UID)
 );

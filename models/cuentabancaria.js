@@ -10,11 +10,19 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(14),
       allowNull: false
     },
-    nombreOwner: {
-      type: DataTypes.CHAR(10),
+    urbanizacion: {
+      type: DataTypes.CHAR(36),
+      allowNull: false,
+      references: {
+        model: 'urbanizacion',
+        key: 'uid'
+      }
+    },
+    nombre_dueno: {
+      type: DataTypes.STRING(30),
       allowNull: false
     },
-    nombreBanco: {
+    nombre_banco: {
       type: DataTypes.STRING(40),
       allowNull: false
     }
@@ -29,6 +37,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "uid" },
+        ]
+      },
+      {
+        name: "ctaUrb",
+        using: "BTREE",
+        fields: [
+          { name: "urbanizacion" },
         ]
       },
     ]

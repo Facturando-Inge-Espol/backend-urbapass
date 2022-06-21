@@ -21,11 +21,6 @@ VALUES
 	("71455","Allistair","Rosales"),
 	("60729","Reece","Rose");
 
-INSERT INTO CuentaBancaria
-VALUES
-	("b8dcd7d2-6aa6-4f0c-bca2-fc34f2271416", "86287", "Urba1", "Banco Pichincha"),
-	("65972c6e-fac6-42a6-ba4a-82466c03027d", "61276", "Urba2","Banco Pichincha");
-
 INSERT INTO Direccion
 VALUES
 	("42928dd3-ba4c-4725-825c-354190aa09ee", "Av. Principal 1", "Av. Secundaria 1", "Guayaquil", "Guayas", "Ecuador"),
@@ -33,8 +28,13 @@ VALUES
 
 INSERT INTO Urbanizacion
 VALUES
-	("7cf51953-8b04-4125-bdc3-f93d52df72d2", "Urba1", "b8dcd7d2-6aa6-4f0c-bca2-fc34f2271416", "42928dd3-ba4c-4725-825c-354190aa09ee", "101010"),
-	("673a612a-c517-4576-aca8-8f1ffe2dccc9", "Urba2", "65972c6e-fac6-42a6-ba4a-82466c03027d", "b97acbbb-a44d-44a3-891e-5f7c6bbe066b", "202020");
+	("7cf51953-8b04-4125-bdc3-f93d52df72d2", "Urba1", "42928dd3-ba4c-4725-825c-354190aa09ee", "101010"),
+	("673a612a-c517-4576-aca8-8f1ffe2dccc9", "Urba2", "b97acbbb-a44d-44a3-891e-5f7c6bbe066b", "202020");
+
+INSERT INTO CuentaBancaria
+VALUES
+	("b8dcd7d2-6aa6-4f0c-bca2-fc34f2271416", "86287", "7cf51953-8b04-4125-bdc3-f93d52df72d2", "UrbaCuenta1", "Banco Pichincha"),
+	("65972c6e-fac6-42a6-ba4a-82466c03027d", "61276", "673a612a-c517-4576-aca8-8f1ffe2dccc9", "UrbaCuenta2","Banco Pichincha");
 
 INSERT INTO Usuario
 VALUES

@@ -22,7 +22,7 @@ router.put("/", (req, res, next) => {
 
 router.get("/:cedula", (req, res, next) => {
   models.alicuota
-    .findAll({ where: { cedula: req.params.cedula } })
+    .findAll({ where: { residente: req.params.cedula } })
     .then((alicuotas) => {
       res.status(200).send(alicuotas);
     })

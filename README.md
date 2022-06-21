@@ -4,21 +4,23 @@
 
 1. [Descripción](#descripción)
 2. [Uso](#uso)
-3. [Rutas](#rutas)
+3. [Esquema UrbaPassDB](#esquema-urbapassdb)
+4. [Rutas](#rutas)
    * [Usuario](#usuario)
    * [Residente](#residente)
    * [Administrador](#administrador)
    * [Guardia](#guardia)
    * [Dirección](#dirección)
+   * [Cuenta Bancaria](#cuenta-bancaria)
    * [Urbanización](#urbanización)
    * [Alicuota](#alicuota)
    * [Pago](#pago)
    * [QR](#qr)
    * [Token](#token)
-4. [Generación de Datos](#generación-de-datos)
-5. [Deprecated - Reconstrucción de Modelos](#deprecated---reconstrucción-de-modelos)
-6. [Bugs](#bugs)
-7. [Autor](#autor)
+5. [Generación de Datos](#generación-de-datos)
+6. [Deprecated - Reconstrucción de Modelos](#deprecated---reconstrucción-de-modelos)
+7. [Bugs](#bugs)
+8. [Autor](#autor)
 
 ## Descripción
 
@@ -31,6 +33,10 @@
 * [Crear la bd y generar datos](#generación-de-datos) para poder probar la API.
 * Configurar el archivo `./config/config.json` con las credenciales para development y production en caso de ser necesario.
 * Usar el comando `npm run devstart` para correr el proyecto.
+
+## Esquema UrbaPassDB
+
+![Schema](./script-sql/schema-database.jpeg)
 
 ## Rutas
 
@@ -82,6 +88,13 @@ La mayoría de los parámetros solicitados en ciertos métodos HTTP deben ser en
 |`get`|/direccion|Retorna todas las direcciones|None|
 |`post`|/direccion|Añade una instancia de dirección a la bd.|`calle_principal` `calle_secundaria` `ciudad` `provincia` `pais`|
 
+### Cuenta Bancaria
+
+|Método|Ruta|Función|Parámetros|
+|------|----|-------|----------|
+|`get`|/cuenta|Retorna todas las cuentas bancarias.|None|
+|`post`|/cuenta/:urbanizacion|Añade una cuenta bancaria asociada a la urbanización dada.|`numero` `nombre_dueno` `nombre_banco`|
+
 ### Urbanización
 
 |Método|Ruta|Función|Parámetros|
@@ -120,6 +133,7 @@ El imgsrc debe ser renderizado de la siguiente forma:
 |`get`|/pago|Retorna todos los pagos.|None|
 |`get`|/pago/:alicuota|Retorna el pago asociado a la alícuota dada incluyendo el imgsrc para renderizar el comprobante|None|
 |`post`|/pago/:alicuota|Añade un pago asociada a la alícuota dada.|`voucher`|
+|`put`|/pago/:alicuota|Actualiza el pago asociado a la alícuota dada.|`valido`|
 
 ### QR
 
