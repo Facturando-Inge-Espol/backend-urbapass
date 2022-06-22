@@ -1,21 +1,20 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('persona', {
     cedula: {
       type: DataTypes.CHAR(10),
       allowNull: false,
       primaryKey: true,
-      comment: "ID UNICO DE PERSONA"
+      comment: 'ID UNICO DE PERSONA'
     },
     nombre: {
       type: DataTypes.STRING(20),
       allowNull: false,
-      comment: "NOMBRE DE LA PERSONA"
+      comment: 'NOMBRE DE LA PERSONA'
     },
     apellido: {
       type: DataTypes.STRING(20),
       allowNull: false,
-      comment: "APELLIDO DEL PADRE DE LA PERSONA"
+      comment: 'APELLIDO DEL PADRE DE LA PERSONA'
     }
   }, {
     sequelize,
@@ -23,13 +22,13 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     indexes: [
       {
-        name: "PRIMARY",
+        name: 'PRIMARY',
         unique: true,
-        using: "BTREE",
+        using: 'BTREE',
         fields: [
-          { name: "cedula" },
+          { name: 'cedula' }
         ]
-      },
+      }
     ]
-  });
-};
+  })
+}

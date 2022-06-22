@@ -1,73 +1,73 @@
-var express = require("express");
-var router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-const sequelize = require("../models/index.js").sequelize;
-var initModels = require("../models/init-models");
-var models = initModels(sequelize);
-const uuid = require("uuid");
+const sequelize = require('../models/index.js').sequelize
+const initModels = require('../models/init-models')
+const models = initModels(sequelize)
+const uuid = require('uuid')
 
-router.get("/", (req, res, next) => {
+router.get('/', (req, res, next) => {
   models.qr
     .findAll({
       include: [
         {
           model: models.residente,
-          association: "info_residente",
+          association: 'info_residente',
           attributes: {
-            exclude: ["cedula"],
+            exclude: ['cedula']
           },
           include: {
             model: models.usuario,
-            association: "info_usuario",
+            association: 'info_usuario',
             attributes: {
-              exclude: ["cedula", "clave", "urbanizacion"],
+              exclude: ['cedula', 'clave', 'urbanizacion']
             },
             include: [
               {
                 model: models.persona,
-                association: "info_persona",
+                association: 'info_persona'
               },
               {
                 model: models.urbanizacion,
-                association: "info_urbanizacion",
+                association: 'info_urbanizacion',
                 attributes: {
-                  exclude: ["cuenta"],
-                },
-              },
-            ],
-          },
+                  exclude: ['cuenta']
+                }
+              }
+            ]
+          }
         },
         {
           model: models.persona,
-          association: "info_visitante",
-        },
+          association: 'info_visitante'
+        }
       ],
       attributes: {
-        exclude: ["emisor", "visitante"],
-      },
+        exclude: ['emisor', 'visitante']
+      }
     })
     .then((qrs) => {
-      res.send(qrs);
+      res.send(qrs)
     })
     .catch((err) => {
-      res.status(400).send(err);
-    });
-});
+      res.status(400).send(err)
+    })
+})
 
-router.get("/:cedula", (req, res, next) => {
+router.get('/:cedula', (req, res, next) => {
   models.qr
     .findAll({ where: { emisor: req.params.cedula } })
     .then((qrs) => {
-      res.status(200).send(qrs);
+      res.status(200).send(qrs)
     })
     .catch((err) => {
-      res.status(500).send(err);
-    });
-});
+      res.status(500).send(err)
+    })
+})
 
-router.post("/:cedula", async (req, res, next) => {
-  const { visitante, nombre, apellido, placa } = req.body;
-  uniqueID = await uuid.v4();
+router.post('/:cedula', async (req, res, next) => {
+  const { visitante, nombre, apellido, placa } = req.body
+  const uniqueID = await uuid.v4()
   await models.persona
     .findOne({ where: { cedula: visitante } })
     .then((vist) => {
@@ -75,24 +75,24 @@ router.post("/:cedula", async (req, res, next) => {
         models.persona
           .create({ cedula: visitante, nombre, apellido })
           .catch((err) => {
-            res.status(500).send(err);
-          });
+            res.status(500).send(err)
+          })
       }
-    });
+    })
   await models.qr
     .create({
       uid: uniqueID,
       emisor: req.params.cedula,
       visitante,
       placa,
-      fechaEmision: new Date().toISOString().replace("Z", ""),
+      fechaEmision: new Date().toISOString().replace('Z', '')
     })
     .then((response) => {
-      res.status(200).send({ uid: uniqueID });
+      res.status(200).send({ uid: uniqueID })
     })
     .catch((err) => {
-      res.status(400).send(err);
-    });
-});
+      res.status(400).send(err)
+    })
+})
 
-module.exports = router;
+module.exports = router

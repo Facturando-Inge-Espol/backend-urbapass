@@ -1,5 +1,4 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('pago', {
     uid: {
       type: DataTypes.CHAR(36),
@@ -13,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
         model: 'alicuota',
         key: 'uid'
       },
-      unique: "pagAliFK"
+      unique: 'pagAliFK'
     },
     valido: {
       type: DataTypes.BOOLEAN,
@@ -34,21 +33,21 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     indexes: [
       {
-        name: "PRIMARY",
+        name: 'PRIMARY',
         unique: true,
-        using: "BTREE",
+        using: 'BTREE',
         fields: [
-          { name: "uid" },
+          { name: 'uid' }
         ]
       },
       {
-        name: "alicuota",
+        name: 'alicuota',
         unique: true,
-        using: "BTREE",
+        using: 'BTREE',
         fields: [
-          { name: "alicuota" },
+          { name: 'alicuota' }
         ]
-      },
+      }
     ]
-  });
-};
+  })
+}

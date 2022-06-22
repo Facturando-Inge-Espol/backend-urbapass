@@ -86,14 +86,14 @@ La mayoría de los parámetros solicitados en ciertos métodos HTTP deben ser en
 |Método|Ruta|Función|Parámetros|
 |------|----|-------|----------|
 |`get`|/direccion|Retorna todas las direcciones|None|
-|`post`|/direccion|Añade una instancia de dirección a la bd.|`calle_principal` `calle_secundaria` `ciudad` `provincia` `pais`|
+|`post`|/direccion|Añade una instancia de dirección a la bd.|`callePrincipal` `calleSecundaria` `ciudad` `provincia` `pais`|
 
 ### Cuenta Bancaria
 
 |Método|Ruta|Función|Parámetros|
 |------|----|-------|----------|
 |`get`|/cuenta|Retorna todas las cuentas bancarias.|None|
-|`post`|/cuenta/:urbanizacion|Añade una cuenta bancaria asociada a la urbanización dada.|`numero` `nombre_dueno` `nombre_banco`|
+|`post`|/cuenta/:urbanizacion|Añade una cuenta bancaria asociada a la urbanización dada.|`numero` `nombreDueno` `nombreBanco`|
 
 ### Urbanización
 

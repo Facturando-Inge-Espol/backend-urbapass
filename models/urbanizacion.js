@@ -1,5 +1,4 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('urbanizacion', {
     uid: {
       type: DataTypes.CHAR(36),
@@ -9,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     nombre: {
       type: DataTypes.STRING(30),
       allowNull: false,
-      unique: "nombre"
+      unique: 'nombre'
     },
     mensualidad: {
       type: DataTypes.FLOAT,
@@ -22,12 +21,12 @@ module.exports = function(sequelize, DataTypes) {
         model: 'direccion',
         key: 'uid'
       },
-      unique: "urbDirFK"
+      unique: 'urbDirFK'
     },
     ruc: {
       type: DataTypes.CHAR(13),
       allowNull: false,
-      unique: "ruc"
+      unique: 'ruc'
     }
   }, {
     sequelize,
@@ -35,37 +34,37 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     indexes: [
       {
-        name: "PRIMARY",
+        name: 'PRIMARY',
         unique: true,
-        using: "BTREE",
+        using: 'BTREE',
         fields: [
-          { name: "uid" },
+          { name: 'uid' }
         ]
       },
       {
-        name: "nombre",
+        name: 'nombre',
         unique: true,
-        using: "BTREE",
+        using: 'BTREE',
         fields: [
-          { name: "nombre" },
+          { name: 'nombre' }
         ]
       },
       {
-        name: "direccion",
+        name: 'direccion',
         unique: true,
-        using: "BTREE",
+        using: 'BTREE',
         fields: [
-          { name: "direccion" },
+          { name: 'direccion' }
         ]
       },
       {
-        name: "ruc",
+        name: 'ruc',
         unique: true,
-        using: "BTREE",
+        using: 'BTREE',
         fields: [
-          { name: "ruc" },
+          { name: 'ruc' }
         ]
-      },
+      }
     ]
-  });
-};
+  })
+}

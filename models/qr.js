@@ -1,5 +1,4 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('qr', {
     uid: {
       type: DataTypes.CHAR(36),
@@ -36,27 +35,27 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     indexes: [
       {
-        name: "PRIMARY",
+        name: 'PRIMARY',
         unique: true,
-        using: "BTREE",
+        using: 'BTREE',
         fields: [
-          { name: "uid" },
+          { name: 'uid' }
         ]
       },
       {
-        name: "qrEmiFK",
-        using: "BTREE",
+        name: 'qrEmiFK',
+        using: 'BTREE',
         fields: [
-          { name: "emisor" },
+          { name: 'emisor' }
         ]
       },
       {
-        name: "qrVisFK",
-        using: "BTREE",
+        name: 'qrVisFK',
+        using: 'BTREE',
         fields: [
-          { name: "visitante" },
+          { name: 'visitante' }
         ]
-      },
+      }
     ]
-  });
-};
+  })
+}
