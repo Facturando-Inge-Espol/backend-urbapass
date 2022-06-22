@@ -1,5 +1,4 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('alicuota', {
     uid: {
       type: DataTypes.CHAR(36),
@@ -9,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     estado: {
       type: DataTypes.STRING(15),
       allowNull: false,
-      defaultValue: "Sin Pagar"
+      defaultValue: 'Sin Pagar'
     },
     urbanizacion: {
       type: DataTypes.CHAR(36),
@@ -37,27 +36,27 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     indexes: [
       {
-        name: "PRIMARY",
+        name: 'PRIMARY',
         unique: true,
-        using: "BTREE",
+        using: 'BTREE',
         fields: [
-          { name: "uid" },
+          { name: 'uid' }
         ]
       },
       {
-        name: "aliResFK",
-        using: "BTREE",
+        name: 'aliResFK',
+        using: 'BTREE',
         fields: [
-          { name: "residente" },
+          { name: 'residente' }
         ]
       },
       {
-        name: "aliUrbFK",
-        using: "BTREE",
+        name: 'aliUrbFK',
+        using: 'BTREE',
         fields: [
-          { name: "urbanizacion" },
+          { name: 'urbanizacion' }
         ]
-      },
+      }
     ]
-  });
-};
+  })
+}

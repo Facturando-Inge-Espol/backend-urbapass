@@ -1,99 +1,98 @@
-var express = require("express");
-const res = require("express/lib/response");
-var router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-const sequelize = require("../models/index.js").sequelize;
-var initModels = require("../models/init-models");
-var models = initModels(sequelize);
+const sequelize = require('../models/index.js').sequelize
+const initModels = require('../models/init-models')
+const models = initModels(sequelize)
 
-router.get("/", (req, res, next) => {
+router.get('/', (req, res, next) => {
   models.administrador
     .findAll({
       include: {
         model: models.usuario,
-        association: "info_usuario",
+        association: 'info_usuario',
         attributes: {
-          exclude: ["cedula", "urbanizacion"],
+          exclude: ['cedula', 'urbanizacion']
         },
         include: [
           {
             model: models.persona,
-            association: "info_persona",
+            association: 'info_persona',
             attributes: {
-              exclude: ["cedula"],
-            },
+              exclude: ['cedula']
+            }
           },
           {
             model: models.urbanizacion,
-            association: "info_urbanizacion",
+            association: 'info_urbanizacion',
             attributes: {
-              exclude: ["cuenta"],
-            },
-          },
-        ],
-      },
+              exclude: ['cuenta']
+            }
+          }
+        ]
+      }
     })
     .then((administradores) => {
-      res.send(administradores);
+      res.send(administradores)
     })
     .catch((err) => {
-      res.status(400).send(err);
-    });
-});
+      res.status(400).send(err)
+    })
+})
 
-router.post("/", (req, res, next) => {
-  models.administrador.create(); //WIP
-});
+router.post('/', (req, res, next) => {
+  models.administrador.create() // WIP
+})
 
-router.get("/:cedula", (req, res, next) => {
+router.get('/:cedula', (req, res, next) => {
   models.administrador
     .findOne({
       include: {
         model: models.usuario,
-        association: "info_usuario",
+        association: 'info_usuario',
         attributes: {
-          exclude: ["cedula", "urbanizacion"],
+          exclude: ['cedula', 'urbanizacion']
         },
         include: [
           {
             model: models.persona,
-            association: "info_persona",
+            association: 'info_persona',
             attributes: {
-              exclude: ["cedula"],
-            },
+              exclude: ['cedula']
+            }
           },
           {
             model: models.urbanizacion,
-            association: "info_urbanizacion",
+            association: 'info_urbanizacion',
             attributes: {
-              exclude: ["cuenta"],
-            },
-          },
-        ],
+              exclude: ['cuenta']
+            }
+          }
+        ]
       },
-      where: { cedula: req.params.cedula },
+      where: { cedula: req.params.cedula }
     })
     .then((admin) => {
-      res.send(admin);
+      res.send(admin)
     })
     .catch((err) => {
-      res.status(400).send(err);
-    });
-});
+      res.status(400).send(err)
+    })
+})
 
-router.put("/:cedula", (req, res, next) => {
-  models.administrador.update();
-});
+router.put('/:cedula', (req, res, next) => {
+  models.administrador.update()
+})
 
-router.delete("/:cedula", (req, res, next) => {
+router.delete('/:cedula', (req, res, next) => {
   models.administrador
     .destroy()
     .then((admin) => {
-      res.status(200).send();
+      res.status(200).send()
     })
     .catch((err) => {
-      res.status(400).send(err);
-    });
-});
+      res.status(400).send(err)
+    })
+})
 
-module.exports = router;
+module.exports = router

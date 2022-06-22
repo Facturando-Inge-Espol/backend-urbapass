@@ -1,5 +1,4 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('usuario', {
     cedula: {
       type: DataTypes.CHAR(10),
@@ -21,12 +20,12 @@ module.exports = function(sequelize, DataTypes) {
     user: {
       type: DataTypes.STRING(16),
       allowNull: false,
-      unique: "user"
+      unique: 'user'
     },
     correo: {
       type: DataTypes.STRING(30),
       allowNull: false,
-      unique: "correo"
+      unique: 'correo'
     },
     clave: {
       type: DataTypes.STRING(25),
@@ -38,36 +37,36 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     indexes: [
       {
-        name: "PRIMARY",
+        name: 'PRIMARY',
         unique: true,
-        using: "BTREE",
+        using: 'BTREE',
         fields: [
-          { name: "cedula" },
+          { name: 'cedula' }
         ]
       },
       {
-        name: "user",
+        name: 'user',
         unique: true,
-        using: "BTREE",
+        using: 'BTREE',
         fields: [
-          { name: "user" },
+          { name: 'user' }
         ]
       },
       {
-        name: "correo",
+        name: 'correo',
         unique: true,
-        using: "BTREE",
+        using: 'BTREE',
         fields: [
-          { name: "correo" },
+          { name: 'correo' }
         ]
       },
       {
-        name: "usrUrbFK",
-        using: "BTREE",
+        name: 'usrUrbFK',
+        using: 'BTREE',
         fields: [
-          { name: "urbanizacion" },
+          { name: 'urbanizacion' }
         ]
-      },
+      }
     ]
-  });
-};
+  })
+}
