@@ -58,7 +58,7 @@ La mayoría de los parámetros solicitados en ciertos métodos HTTP deben ser en
 |`get`|/residente|Retorna todos los residentes.|None|
 |`post`|/residente|Añade un residente a la db.|`cedula` `nombre` `apellido` `urbano` `user` `correo` `clave` `manzana` `villa`|
 |`get`|/residente/:cedula|Retorna el residente con la cédula dada.|None|
-|`put`|/residente/:cedula|Actualiza el residente con la cédula dada en la db.|WIP|
+|`put`|/residente/:cedula|Actualiza el residente con la cédula dada en la db.|`correo` `clave`|
 |`delete`|/residente/:cedula|Elimina el residente con la cédula dada en la db.|None|
 
 ### Administrador
@@ -78,7 +78,7 @@ La mayoría de los parámetros solicitados en ciertos métodos HTTP deben ser en
 |`get`|/guardia|Retorna todos los guardias.|None|
 |`post`|/guardia|Añade un guardia a la bd.|`cedula` `nombre` `apellido` `urbano` `user` `correo` `clave`|
 |`get`|/guardia/:cedula|Retorna el guardia con la cédula dada.|None|
-|`put`|/guardia/:cedula|Actualiza el guardia con la cédula dada.|WIP|
+|`put`|/guardia/:cedula|Actualiza el guardia con la cédula dada.|`corre` `clave`|
 |`delete`|/guardia/:cedula|Elimina el guardia con la cédula dada en la bd.|None|
 
 ### Dirección
@@ -113,6 +113,7 @@ La mayoría de los parámetros solicitados en ciertos métodos HTTP deben ser en
 |`put`|/alicuota|Actualiza el estado de la alicuota.|WIP|
 |`get`|/alicuota/:cedula|Retorna todas las alicuotas correspondiente al residente(cédula) dado.|None|
 |`post`|/alicuota/:cedula|Añade una alicuota asociada al residente(cédula) dado.|WIP|
+|`get`|/alicuota/estado/:estado|Retorna todas las alicuotas con es estado dado|None|
 
 
 ### Pago
@@ -134,6 +135,7 @@ El imgsrc debe ser renderizado de la siguiente forma:
 |`get`|/pago/:alicuota|Retorna el pago asociado a la alícuota dada incluyendo el imgsrc para renderizar el comprobante|None|
 |`post`|/pago/:alicuota|Añade un pago asociada a la alícuota dada.|`voucher`|
 |`put`|/pago/:alicuota|Actualiza el pago asociado a la alícuota dada.|`valido`|
+|`get`|/pago/urbanizacion/:uid|Retorna todos los pagos asociados a la urbanización dada.|None|
 
 ### QR
 

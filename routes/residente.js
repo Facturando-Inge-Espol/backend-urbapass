@@ -10,7 +10,6 @@ const {
   getAttribute,
 } = require("../public/javascripts/helper");
 
-/* Getting all the residentes from the database. */
 router.get("/", (req, res, next) => {
   models.residente
     .findAll({
@@ -142,7 +141,7 @@ router.put("/:cedula", (req, res, next) => {
       }
     )
     .then((response) => {
-      res.status(200).send();
+      res.status(200).send(response);
     })
     .catch((err) => {
       res.status(500).send(err);
@@ -152,8 +151,8 @@ router.put("/:cedula", (req, res, next) => {
 router.delete("/:cedula", (req, res, next) => {
   models.residente
     .destroy({ where: { cedula: req.params.cedula } })
-    .then((residente) => {
-      res.status(200).send();
+    .then((response) => {
+      res.status(200).send(response);
     })
     .catch((err) => {
       res.status(400).send(err);

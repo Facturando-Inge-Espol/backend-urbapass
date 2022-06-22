@@ -11,9 +11,13 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       defaultValue: "Sin Pagar"
     },
-    valor: {
-      type: DataTypes.FLOAT,
-      allowNull: true
+    urbanizacion: {
+      type: DataTypes.CHAR(36),
+      allowNull: false,
+      references: {
+        model: 'urbanizacion',
+        key: 'uid'
+      }
     },
     fecha_inicio: {
       type: DataTypes.DATEONLY,
@@ -45,6 +49,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "residente" },
+        ]
+      },
+      {
+        name: "aliUrbFK",
+        using: "BTREE",
+        fields: [
+          { name: "urbanizacion" },
         ]
       },
     ]

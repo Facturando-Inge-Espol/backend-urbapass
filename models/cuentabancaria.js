@@ -10,6 +10,18 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(14),
       allowNull: false
     },
+    cedula_dueno: {
+      type: DataTypes.CHAR(10),
+      allowNull: false
+    },
+    correo: {
+      type: DataTypes.STRING(50),
+      allowNull: false
+    },
+    tipo: {
+      type: DataTypes.STRING(15),
+      allowNull: false
+    },
     urbanizacion: {
       type: DataTypes.CHAR(36),
       allowNull: false,

@@ -11,6 +11,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       unique: "nombre"
     },
+    mensualidad: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
     direccion: {
       type: DataTypes.CHAR(36),
       allowNull: false,

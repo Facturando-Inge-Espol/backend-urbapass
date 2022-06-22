@@ -26,11 +26,11 @@ function initModels(sequelize) {
 
   pago.belongsTo(alicuota, { as: "info_alicuota", foreignKey: "alicuota" });
   alicuota.hasOne(pago, { as: "info_pago", foreignKey: "alicuota" });
-  urbanizacion.belongsTo(cuentabancaria, {
+  urbanizacion.hasMany(cuentabancaria, {
     as: "info_cuenta",
     foreignKey: "cuenta",
   });
-  cuentabancaria.hasOne(urbanizacion, {
+  cuentabancaria.belongsTo(urbanizacion, {
     as: "info_urbanizacion",
     foreignKey: "cuenta",
   });
@@ -49,6 +49,14 @@ function initModels(sequelize) {
   alicuota.belongsTo(residente, {
     as: "info_residente",
     foreignKey: "residente",
+  });
+  alicuota.belongsTo(urbanizacion, {
+    as: "info_urbanizacion",
+    foreignKey: "urbanizacion",
+  });
+  urbanizacion.hasMany(alicuota, {
+    as: "info_alicuota",
+    foreignKey: "urbanizacion",
   });
   residente.hasMany(alicuota, { as: "info_alicuota", foreignKey: "residente" });
   qr.belongsTo(residente, { as: "info_residente", foreignKey: "emisor" });

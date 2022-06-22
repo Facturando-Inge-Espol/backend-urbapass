@@ -28,13 +28,13 @@ VALUES
 
 INSERT INTO Urbanizacion
 VALUES
-	("7cf51953-8b04-4125-bdc3-f93d52df72d2", "Urba1", "42928dd3-ba4c-4725-825c-354190aa09ee", "101010"),
-	("673a612a-c517-4576-aca8-8f1ffe2dccc9", "Urba2", "b97acbbb-a44d-44a3-891e-5f7c6bbe066b", "202020");
+	("7cf51953-8b04-4125-bdc3-f93d52df72d2", "Urba1", 130.25, "42928dd3-ba4c-4725-825c-354190aa09ee", "101010"),
+	("673a612a-c517-4576-aca8-8f1ffe2dccc9", "Urba2", 140.50, "b97acbbb-a44d-44a3-891e-5f7c6bbe066b", "202020");
 
 INSERT INTO CuentaBancaria
 VALUES
-	("b8dcd7d2-6aa6-4f0c-bca2-fc34f2271416", "86287", "7cf51953-8b04-4125-bdc3-f93d52df72d2", "UrbaCuenta1", "Banco Pichincha"),
-	("65972c6e-fac6-42a6-ba4a-82466c03027d", "61276", "673a612a-c517-4576-aca8-8f1ffe2dccc9", "UrbaCuenta2","Banco Pichincha");
+	("b8dcd7d2-6aa6-4f0c-bca2-fc34f2271416", "86287", "098761", "juanito@gmail.com", "Corriente", "7cf51953-8b04-4125-bdc3-f93d52df72d2", "UrbaCuenta1", "Banco Pichincha"),
+	("65972c6e-fac6-42a6-ba4a-82466c03027d", "61276", "098762", "alimana@gmail.com", "Ahorro", "673a612a-c517-4576-aca8-8f1ffe2dccc9", "UrbaCuenta2","Banco Pichincha");
 
 INSERT INTO Usuario
 VALUES
@@ -93,12 +93,12 @@ VALUES
 
 INSERT INTO Alicuota
 VALUES
-	("f1fa69d9-5876-4365-8f81-972dddcbb1d9", "SIN PAGAR", 120.25, "2022-04-01", "11386"),
-	("59989b9f-7b32-4637-b7ae-d1b52d2b2a0d", "PAGADO", 120.25, "2022-04-01", "11386"),
-	("6e3cdcd9-d3a0-402c-80e5-562096edc7f1", "COMPROBANDO", 120.25, "2022-04-01", "35027"),
-	("09c4942a-5fb0-4808-95e8-821c29a08731", "SIN PAGAR", 120.25, "2022-04-01", "35027"),
-	("fdfd212b-9bcc-40cd-9afd-ca1bea542abe", "SIN PAGAR", 120.25, "2022-04-01", "63441"),
-	("b41d526d-5ab7-47cb-94de-187d28610fbb", "PAGADO", 120.25, "2022-04-01", "63441"),
-	("a2dafc7d-504f-4cb7-9b33-7f8d1de3d3ed", "SIN PAGAR", 120.25, "2022-04-01", "89793"),
-	("1390db9b-0e23-4831-a2f5-62d2cc02cdcc", "SIN PAGAR", 120.25, "2022-04-01", "89793");
+	("f1fa69d9-5876-4365-8f81-972dddcbb1d9", "SIN PAGAR", "7cf51953-8b04-4125-bdc3-f93d52df72d2", "2022-04-01", "11386"),
+	("59989b9f-7b32-4637-b7ae-d1b52d2b2a0d", "PAGADO", "7cf51953-8b04-4125-bdc3-f93d52df72d2", "2022-04-01", "11386"),
+	("6e3cdcd9-d3a0-402c-80e5-562096edc7f1", "COMPROBANDO", "7cf51953-8b04-4125-bdc3-f93d52df72d2", "2022-04-01", "35027"),
+	("09c4942a-5fb0-4808-95e8-821c29a08731", "SIN PAGAR", "7cf51953-8b04-4125-bdc3-f93d52df72d2", "2022-04-01", "35027"),
+	("fdfd212b-9bcc-40cd-9afd-ca1bea542abe", "SIN PAGAR", "7cf51953-8b04-4125-bdc3-f93d52df72d2", "2022-04-01", "63441"),
+	("b41d526d-5ab7-47cb-94de-187d28610fbb", "PAGADO", "673a612a-c517-4576-aca8-8f1ffe2dccc9", "2022-04-01", "63441"),
+	("a2dafc7d-504f-4cb7-9b33-7f8d1de3d3ed", "SIN PAGAR", "673a612a-c517-4576-aca8-8f1ffe2dccc9", "2022-04-01", "89793"),
+	("1390db9b-0e23-4831-a2f5-62d2cc02cdcc", "SIN PAGAR", "673a612a-c517-4576-aca8-8f1ffe2dccc9", "2022-04-01", "89793");
 
