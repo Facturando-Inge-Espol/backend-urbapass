@@ -4,7 +4,11 @@ var router = express.Router();
 const sequelize = require("../models/index.js").sequelize;
 var initModels = require("../models/init-models");
 var models = initModels(sequelize);
-const {verifyExistence, getAttribute, verifyUnique} = require("../public/javascripts/helper")
+const {
+  verifyExistence,
+  getAttribute,
+  verifyUnique,
+} = require("../public/javascripts/helper");
 
 router.get("/", (req, res, next) => {
   models.guardia
@@ -20,8 +24,8 @@ router.get("/", (req, res, next) => {
             model: models.persona,
             association: "info_persona",
             attributes: {
-              exclude: ["cedula"]
-            }
+              exclude: ["cedula"],
+            },
           },
           {
             model: models.urbanizacion,
@@ -62,14 +66,14 @@ router.post("/", async (req, res, next) => {
       res.status(500).send(err);
     });
     await models.usuario
-      .create({ cedula, urbanizacion:urbano, user, correo, clave })
+      .create({ cedula, urbanizacion: urbano, user, correo, clave })
       .catch((err) => {
         res.status(500).send(err);
       });
     await models.guardia
       .create({ cedula })
       .then((response) => {
-      res.status(200).send(response);
+        res.status(200).send(response);
       })
       .catch((err) => {
         res.status(500).send(err);
@@ -116,6 +120,7 @@ router.get("/:cedula", (req, res, next) => {
 });
 
 router.put("/:cedula", (req, res, next) => {
+  const { correo, clave } = req.body;
   models.guardia
     .update(
       { correo, clave },
@@ -126,7 +131,7 @@ router.put("/:cedula", (req, res, next) => {
       }
     )
     .then((response) => {
-      res.status(200).send();
+      res.status(200).send(response);
     })
     .catch((err) => {
       res.status(500).send(err);
@@ -136,8 +141,8 @@ router.put("/:cedula", (req, res, next) => {
 router.delete("/:cedula", (req, res, next) => {
   models.guardia
     .destroy({ where: { cedula: req.params.cedula } })
-    .then((guardia) => {
-      res.status(200).send();
+    .then((response) => {
+      res.status(200).send(response);
     })
     .catch((err) => {
       res.status(400).send(err);

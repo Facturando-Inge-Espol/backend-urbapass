@@ -7,7 +7,15 @@ var models = initModels(sequelize);
 
 router.get("/", (req, res, next) => {
   models.alicuota
-    .findAll()
+    .findAll({
+      include: {
+        model: models.urbanizacion,
+        association: "info_urbanizacion",
+      },
+      attributes: {
+        exclude: ["urbanizacion"],
+      },
+    })
     .then((alicuotas) => {
       res.send(alicuotas);
     })
@@ -39,6 +47,21 @@ router.post("/:cedula", (req, res, next) => {
     })
     .catch((err) => {
       res.status(400).send(err);
+    });
+});
+
+router.get("/estado/:estado", (req, res, next) => {
+  models.alicuota
+    .findAll({
+      where: {
+        estado: req.params.estado,
+      },
+    })
+    .then((alicuotas) => {
+      res.status(200).send(alicuotas);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
     });
 });
 

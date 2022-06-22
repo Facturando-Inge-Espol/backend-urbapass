@@ -20,12 +20,18 @@ router.get("/", (req, res, next) => {
         model: models.alicuota,
         association: "info_alicuota",
         attributes: {
-          exclude: ["residente"],
+          exclude: ["residente", "urbanizacion"],
         },
-        include: {
-          model: models.residente,
-          association: "info_residente",
-        },
+        include: [
+          {
+            model: models.residente,
+            association: "info_residente",
+          },
+          {
+            model: models.urbanizacion,
+            association: "info_urbanizacion",
+          },
+        ],
       },
       attributes: {
         exclude: ["alicuota"],
@@ -47,16 +53,22 @@ router.get("/:alicuota", (req, res, next) => {
       },
     })
     .then((voucher) => {
-      var imagePath = voucher.image;
-      fs.readFile(imagePath, (err, data) => {
-        if (err) {
-          res.status(500).send(err);
-        }
-        res.status(200).send({
-          voucher,
-          imgsrc: data.toString("base64"),
+      if (voucher) {
+        var imagePath = voucher.image;
+        fs.readFile(imagePath, (err, data) => {
+          if (err) {
+            res.status(500).send(err);
+          }
+          res.status(200).send({
+            voucher,
+            imgsrc: data.toString("base64"),
+          });
         });
-      });
+      } else {
+        res.status(400).send({errores: ["Pago a alicuota no existe"]});
+      }
+    }).catch(err => {
+      res.status(500).send(err);
     });
 });
 
@@ -82,7 +94,9 @@ router.post("/:alicuota", upload.single("voucher"), async (req, res, next) => {
       });
     await models.alicuota
       .update(
-        { estado: "Comprobando" },
+        {
+          estado: "COMPROBANDO",
+        },
         {
           where: {
             uid: req.params.alicuota,
@@ -105,15 +119,12 @@ router.put("/:alicuota", (req, res, next) => {
   models.pago
     .update(
       {
-        where: { alicuota: req.params.alicuota },
+        valido,
       },
       {
-        valido,
+        where: { alicuota: req.params.alicuota },
       }
     )
-    .then((response) => {
-      res.status(200).send(response);
-    })
     .catch((err) => {
       res.status(500).send(err);
     });
@@ -121,10 +132,10 @@ router.put("/:alicuota", (req, res, next) => {
     models.alicuota
       .update(
         {
-          where: { uid: req.params.alicuota },
+          estado: "PAGADO",
         },
         {
-          estado: "Pagado",
+          where: { uid: req.params.alicuota },
         }
       )
       .then((response) => {
@@ -137,10 +148,10 @@ router.put("/:alicuota", (req, res, next) => {
     models.alicuota
       .update(
         {
-          where: { uid: req.params.alicuota },
+          estado: "INVALIDO",
         },
         {
-          estado: "Pago inválido",
+          where: { uid: req.params.alicuota },
         }
       )
       .then((response) => {
@@ -150,6 +161,35 @@ router.put("/:alicuota", (req, res, next) => {
         res.status(500).send(err);
       });
   }
+});
+
+router.get("/urbanizacion/:uid", (req, res, next) => {
+  models.pago
+    .findAll({
+      include: {
+        model: models.alicuota,
+        association: "info_alicuota",
+        where: {
+          urbanizacion: req.params.uid,
+        },
+        include: {
+          model: models.urbanizacion,
+          association: "info_urbanizacion",
+        },
+        attributes: {
+          exclude: ["urbanizacion"],
+        },
+      },
+      attributes: {
+        exclude: ["alicuota"],
+      },
+    })
+    .then((pagos) => {
+      res.status(200).send(pagos);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
 });
 
 module.exports = router;
