@@ -28,11 +28,11 @@ function initModels (sequelize) {
   alicuota.hasOne(pago, { as: 'info_pago', foreignKey: 'alicuota' })
   urbanizacion.hasMany(cuentabancaria, {
     as: 'info_cuenta',
-    foreignKey: 'cuenta'
+    foreignKey: 'urbanizacion'
   })
   cuentabancaria.belongsTo(urbanizacion, {
     as: 'info_urbanizacion',
-    foreignKey: 'cuenta'
+    foreignKey: 'urbanizacion'
   })
   urbanizacion.belongsTo(direccion, {
     as: 'info_direccion',
