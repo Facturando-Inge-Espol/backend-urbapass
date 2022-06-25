@@ -56,7 +56,45 @@ router.get('/', (req, res, next) => {
 
 router.get('/:cedula', (req, res, next) => {
   models.qr
-    .findAll({ where: { emisor: req.params.cedula } })
+    .findAll({
+      include: [
+        {
+          model: models.residente,
+          association: 'info_residente',
+          attributes: {
+            exclude: ['cedula']
+          },
+          include: {
+            model: models.usuario,
+            association: 'info_usuario',
+            attributes: {
+              exclude: ['cedula', 'clave', 'urbanizacion']
+            },
+            include: [
+              {
+                model: models.persona,
+                association: 'info_persona'
+              },
+              {
+                model: models.urbanizacion,
+                association: 'info_urbanizacion',
+                attributes: {
+                  exclude: ['cuenta']
+                }
+              }
+            ]
+          }
+        },
+        {
+          model: models.persona,
+          association: 'info_visitante'
+        }
+      ],
+      attributes: {
+        exclude: ['emisor', 'visitante']
+      },
+      where: { emisor: req.params.cedula }
+    })
     .then((qrs) => {
       res.status(200).send(qrs)
     })
@@ -92,6 +130,57 @@ router.post('/:cedula', async (req, res, next) => {
     })
     .catch((err) => {
       res.status(400).send(err)
+    })
+})
+
+router.get('/uid/:uid', (req, res, next) => {
+  models.qr
+    .findOne({
+      include: [
+        {
+          model: models.residente,
+          association: 'info_residente',
+          attributes: {
+            exclude: ['cedula']
+          },
+          include: {
+            model: models.usuario,
+            association: 'info_usuario',
+            attributes: {
+              exclude: ['cedula', 'clave', 'urbanizacion']
+            },
+            include: [
+              {
+                model: models.persona,
+                association: 'info_persona'
+              },
+              {
+                model: models.urbanizacion,
+                association: 'info_urbanizacion',
+                attributes: {
+                  exclude: ['cuenta']
+                }
+              }
+            ]
+          }
+        },
+        {
+          model: models.persona,
+          association: 'info_visitante'
+        }
+      ],
+      attributes: {
+        exclude: ['emisor', 'visitante']
+      },
+      where: {
+        uid: req.params.cedula
+      }
+    })
+    .then((qr) => {
+      res.status(200).send(qr)
+    })
+    .catch((err) => {
+      res.status(500).send(err)
     })
 })
 
