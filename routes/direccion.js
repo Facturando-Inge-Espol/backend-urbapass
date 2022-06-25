@@ -24,8 +24,8 @@ router.post('/', (req, res, next) => {
   models.direccion
     .create({
       uid: uniqueID,
-      callePrincipal,
-      calleSecundaria,
+      calle_principal: callePrincipal,
+      calle_secundaria: calleSecundaria,
       ciudad,
       provincia,
       pais

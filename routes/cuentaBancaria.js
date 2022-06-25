@@ -18,16 +18,46 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/:urbanizacion', (req, res, next) => {
-  const { numero, nombreDueno, nombreBanco } = req.body
+  const { numero, nombreDueno, cedulaDueno, correo, tipo, nombreBanco } =
+    req.body
   const uniqueID = uuid.v4()
   models.cuentabancaria
     .create({
       uid: uniqueID,
-      nombreBanco,
-      nombreDueno,
+      nombre_banco: nombreBanco,
+      nombre_dueno: nombreDueno,
       numero,
+      cedula_dueno: cedulaDueno,
+      correo,
+      tipo,
       urbanizacion: req.params.urbanizacion
     })
+    .then((response) => {
+      res.status(200).send(response)
+    })
+    .catch((err) => {
+      res.status(500).send(err)
+    })
+})
+
+router.put('/:uid', (req, res, next) => {
+  const { numero, nombreDueno, cedulaDueno, correo, tipo, nombreBanco } =
+    req.body
+  models.cuentabancaria
+    .update(
+      {
+        nombre_banco: nombreBanco,
+        nombre_dueno: nombreDueno,
+        numero,
+        cedula_dueno: cedulaDueno,
+        correo,
+        tipo,
+        urbanizacion: req.params.urbanizacion
+      },
+      {
+        where: { uid: req.params.uid }
+      }
+    )
     .then((response) => {
       res.status(200).send(response)
     })

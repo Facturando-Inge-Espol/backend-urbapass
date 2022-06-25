@@ -93,7 +93,8 @@ La mayoría de los parámetros solicitados en ciertos métodos HTTP deben ser en
 |Método|Ruta|Función|Parámetros|
 |------|----|-------|----------|
 |`get`|/cuenta|Retorna todas las cuentas bancarias.|None|
-|`post`|/cuenta/:urbanizacion|Añade una cuenta bancaria asociada a la urbanización dada.|`numero` `nombreDueno` `nombreBanco`|
+|`post`|/cuenta/:urbanizacion|Añade una cuenta bancaria asociada a la urbanización dada.|`numero` `nombreDueno` `cedulaDueno` `correo` `tipo` `nombreBanco`|
+|`put`|/cuenta/:uid|Actualiza la cuenta uid bancaria en la bd|`numero` `nombreDueno` `cedulaDueno` `correo` `tipo` `nombreBanco`|
 
 ### Urbanización
 
@@ -112,7 +113,7 @@ La mayoría de los parámetros solicitados en ciertos métodos HTTP deben ser en
 |`get`|/alicuota|Retorna todas las alicuotas.|None|
 |`put`|/alicuota|Actualiza el estado de la alicuota.|WIP|
 |`get`|/alicuota/:cedula|Retorna todas las alicuotas correspondiente al residente(cédula) dado.|None|
-|`post`|/alicuota/:cedula|Añade una alicuota asociada al residente(cédula) dado.|WIP|
+|`post`|/alicuota/:cedula|Añade una alicuota asociada al residente(cédula) dado.|None|
 |`get`|/alicuota/estado/:estado|Retorna todas las alicuotas con es estado dado|None|
 
 
@@ -144,6 +145,7 @@ El imgsrc debe ser renderizado de la siguiente forma:
 |`get`|/qr|Retorna todos los QR.|None|
 |`get`|/qr/:cedula|Retorna todos los QR creados por un residente(cédula) dado.|None|
 |`post`|/qr/:cedula|Añade un QR asociado al residente(cédula) dado.|`visitante` `nombre` `apellido` `placa`|
+|`get`|/qr/uid/:uid|Retorna el QR creado con el uid dado|None|
 
 ### Token
 
