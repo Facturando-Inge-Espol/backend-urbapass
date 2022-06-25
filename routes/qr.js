@@ -173,13 +173,14 @@ router.get('/uid/:uid', (req, res, next) => {
         exclude: ['emisor', 'visitante']
       },
       where: {
-        uid: req.params.cedula
+        uid: req.params.uid
       }
     })
     .then((qr) => {
       res.status(200).send(qr)
     })
     .catch((err) => {
+      console.log(err);
       res.status(500).send(err)
     })
 })

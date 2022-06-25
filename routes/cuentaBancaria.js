@@ -51,8 +51,7 @@ router.put('/:uid', (req, res, next) => {
         numero,
         cedula_dueno: cedulaDueno,
         correo,
-        tipo,
-        urbanizacion: req.params.urbanizacion
+        tipo
       },
       {
         where: { uid: req.params.uid }
