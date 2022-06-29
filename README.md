@@ -66,9 +66,9 @@ La mayoría de los parámetros solicitados en ciertos métodos HTTP deben ser en
 |Método|Ruta|Función|Parámetros|
 |------|----|-------|----------|
 |`get`|/administrador|Retorna todos los administradores.|None|
-|`post`|/administrador|Añade un administrador a la bd.|WIP|
+|`post`|/administrador|Añade un administrador a la bd.|`cedula` `nombre` `apellido` `urbano` `user` `correo` `clave`|
 |`get`|/administrador/:cedula|Retorna el administrador con la cédula dada.|None|
-|`put`|/administrador/:cedula|Actualiza el administrador con la cédula dada.|WIP|
+|`put`|/administrador/:cedula|Actualiza el administrador con la cédula dada.|`corre` `clave`|
 |`delete`|/administrador/:cedula|Elimina el administrador con la cédula dada en la bd.|None|
 
 ### Guardia
@@ -95,6 +95,7 @@ La mayoría de los parámetros solicitados en ciertos métodos HTTP deben ser en
 |`get`|/cuenta|Retorna todas las cuentas bancarias.|None|
 |`post`|/cuenta/:urbanizacion|Añade una cuenta bancaria asociada a la urbanización dada.|`numero` `nombreDueno` `cedulaDueno` `correo` `tipo` `nombreBanco`|
 |`put`|/cuenta/:uid|Actualiza la cuenta bancaria asociada a la uid dada en la bd.|`numero` `nombreDueno` `cedulaDueno` `correo` `tipo` `nombreBanco`|
+|`delete`|/cuenta/:uid|Elimina una cuenta bancaria de la bd.|None|
 
 ### Urbanización
 

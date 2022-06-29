@@ -66,4 +66,15 @@ router.put('/:uid', (req, res, next) => {
     })
 })
 
+router.delete('/:uid', (req, res, next) => {
+  models.cuentabancaria
+    .destroy({ where: { uid: req.params.uid } })
+    .then((cuenta) => {
+      res.status(200).send(cuenta)
+    })
+    .catch((err) => {
+      res.status(400).send(err)
+    })
+})
+
 module.exports = router
