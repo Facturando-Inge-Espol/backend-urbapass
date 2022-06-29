@@ -4,6 +4,11 @@ const router = express.Router()
 const sequelize = require('../models/index.js').sequelize
 const initModels = require('../models/init-models')
 const models = initModels(sequelize)
+const {
+  verifyExistence,
+  getAttribute,
+  verifyUnique
+} = require('../public/javascripts/helper')
 
 router.get('/', (req, res, next) => {
   models.administrador
@@ -40,8 +45,42 @@ router.get('/', (req, res, next) => {
     })
 })
 
-router.post('/', (req, res, next) => {
-  models.administrador.create() // WIP
+router.post('/', async (req, res, next) => {
+  const { cedula, nombre, apellido, urbano, user, correo, clave } = req.body
+  const hasUrba = await verifyExistence(
+    models.urbanizacion,
+    urbano,
+    'Urbanización no existe'
+  )
+  const uniqueCed = await verifyUnique(
+    await models.usuario.findAll({ where: { cedula } }),
+    'Cédula Duplicada'
+  )
+  const uniqueEmail = await verifyUnique(
+    await models.usuario.findAll({ where: { correo } }),
+    'Correo Duplicado'
+  )
+  const errores = [hasUrba, uniqueCed, uniqueEmail]
+  if (getAttribute(errores, 'correcto').every((bool) => bool)) {
+    await models.persona.create({ cedula, nombre, apellido }).catch((err) => {
+      res.status(500).send(err)
+    })
+    await models.usuario
+      .create({ cedula, urbanizacion: urbano, user, correo, clave })
+      .catch((err) => {
+        res.status(500).send(err)
+      })
+    await models.administrador
+      .create({ cedula })
+      .then((response) => {
+        res.status(200).send(response)
+      })
+      .catch((err) => {
+        res.status(500).send(err)
+      })
+  } else {
+    res.status(500).send({ errores: getAttribute(errores, 'error') })
+  }
 })
 
 router.get('/:cedula', (req, res, next) => {
@@ -81,14 +120,29 @@ router.get('/:cedula', (req, res, next) => {
 })
 
 router.put('/:cedula', (req, res, next) => {
-  models.administrador.update()
+  const { correo, clave } = req.body
+  models.administrador
+    .update(
+      { correo, clave },
+      {
+        where: {
+          cedula: req.params.cedula
+        }
+      }
+    )
+    .then((response) => {
+      res.status(200).send(response)
+    })
+    .catch((err) => {
+      res.status(500).send(err)
+    })
 })
 
 router.delete('/:cedula', (req, res, next) => {
   models.administrador
-    .destroy()
+    .destroy({ where: { cedula: req.params.cedula } })
     .then((admin) => {
-      res.status(200).send()
+      res.status(200).send(admin)
     })
     .catch((err) => {
       res.status(400).send(err)
