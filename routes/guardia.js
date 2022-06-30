@@ -139,7 +139,7 @@ router.put('/:cedula', (req, res, next) => {
 })
 
 router.delete('/:cedula', (req, res, next) => {
-  models.guardia
+  models.persona
     .destroy({ where: { cedula: req.params.cedula } })
     .then((response) => {
       res.status(200).send(response)

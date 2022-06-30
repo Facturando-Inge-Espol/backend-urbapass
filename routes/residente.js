@@ -149,10 +149,10 @@ router.put('/:cedula', (req, res, next) => {
 })
 
 router.delete('/:cedula', (req, res, next) => {
-  models.residente
+  models.persona
     .destroy({ where: { cedula: req.params.cedula } })
     .then((response) => {
-      res.status(200).send(response)
+      res.status(200).send()
     })
     .catch((err) => {
       res.status(400).send(err)
