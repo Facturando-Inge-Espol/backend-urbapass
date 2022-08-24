@@ -1,0 +1,17 @@
+test_get_aliquots_by_resident (request.TestUrbaPassDB) ... ok
+test_get_aliquots_by_urbanization (request.TestUrbaPassDB) ... ok
+test_get_all_aliquots (request.TestUrbaPassDB) ... ok
+test_get_all_resident (request.TestUrbaPassDB) ... ok
+test_get_all_urbanizations (request.TestUrbaPassDB) ... ok
+test_get_all_user (request.TestUrbaPassDB) ... ok
+test_get_payments_by_resident (request.TestUrbaPassDB) ... ok
+test_get_qr_by_ci (request.TestUrbaPassDB) ... ok
+test_get_resident_by_ci (request.TestUrbaPassDB) ... ok
+test_get_user_by_ci (request.TestUrbaPassDB) ... ok
+test_get_user_by_email (request.TestUrbaPassDB) ... ok
+test_get_user_by_nickname (request.TestUrbaPassDB) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.007s
+
+OK

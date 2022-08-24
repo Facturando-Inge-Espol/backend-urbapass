@@ -1,5 +1,5 @@
-class Payment(object):
-    """"Class Payment"""
+class Aliquot(object):
+    """"Class Aliquot"""
 
     def __init__(self, row_info) -> None:
         self.uid = row_info["uid"]

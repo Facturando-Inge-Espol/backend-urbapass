@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 
-const secret = 'FACTURANDODEBEPIZZA'
+const secret = 'PALABRASECRETA'
 
 function generateAccessToken (username) {
   return jwt.sign(username, secret, { expiresIn: '3600s' })

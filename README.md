@@ -24,7 +24,7 @@
 
 ## Descripción
 
-**UrbaPass Backend** es una API REST que permitirá la comunicación entre el cliente y servidor de Facturando, facilita la interación y obtención de los datos mediante peticiones con el protocolo HTTP.
+**UrbaPass Backend** es una API REST que permitirá la comunicación entre el cliente y servidor de EMPRESA, facilita la interación y obtención de los datos mediante peticiones con el protocolo HTTP.
 
 ## Uso
 

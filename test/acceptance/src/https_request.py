@@ -45,34 +45,34 @@ def get_user_by_ci(ci):
     return result, message
 
 
-def get_all_payment():
+def get_all_aliquot():
     request = rq.get("http://localhost:3001/alicuota")
     return request.json()
 
-def get_payment_by_status(status):
+def get_aliquot_by_status(status):
     request = rq.get("http://localhost:3001/alicuota/estado/%s" % status)
     try:
         result = request.json()
     except:
         result = []
     if len(result) == 1:
-        message = "A payment with status %s was found" % status
+        message = "A aliquot with status %s was found" % status
     elif len(result) > 1:
-        message = "A %d payments with status %s were found" % (len(result), status)
+        message = "A %d aliquots with status %s were found" % (len(result), status)
     else:
-        message = "No payment with status %s was found" % status
+        message = "No aliquot with status %s was found" % status
     return result, message
 
-def get_payment_by_resident(resident):
+def get_aliquot_by_resident(resident):
     request = rq.get("http://localhost:3001/alicuota/%s" % resident)
     try:
         result = request.json()
     except:
         result = []
     if len(result) == 1:
-        message = "A payment of resident %s was found" % resident
+        message = "A aliquot of resident %s was found" % resident
     elif len(result) > 1:
-        message = "A %d payments of resident %s were found" % (len(result), resident)
+        message = "A %d aliquots of resident %s were found" % (len(result), resident)
     else:
-        message = "No payment of resident %s was found" % resident
+        message = "No aliquot of resident %s was found" % resident
     return result, message

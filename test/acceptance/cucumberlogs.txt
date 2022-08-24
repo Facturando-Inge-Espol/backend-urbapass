@@ -1,0 +1,150 @@
+Feature: Search aliquot # features/search_aliquot.feature:2
+
+  @searchAliquotByResident
+  Scenario: Search aliquot by resident                        # features/search_aliquot.feature:5
+    Given a set of aliquots                                   # features/steps/search_aliquot.py:5
+      | UID                                  | RESIDENT   | STATUS    | URBANIZATION |
+      | 09c4942a-5fb0-4808-95e8-821c29a08731 | 1204335027 | SIN PAGAR | Urba1        |
+      | 59989b9f-7b32-4637-b7ae-d1b52d2b2a0d | 1204311386 | SIN PAGAR | Urba1        |
+      | 6e3cdcd9-d3a0-402c-80e5-562096edc7f1 | 1204335027 | SIN PAGAR | Urba1        |
+      | 1390db9b-0e23-4831-a2f5-62d2cc02cdcc | 1204389793 | PAGADO    | Urba2        |
+      | a2dafc7d-504f-4cb7-9b33-7f8d1de3d3ed | 1204389793 | PAGADO    | Urba2        |
+    Given the client enters the parameter: 1204335027         # features/steps/search_user.py:18
+    When the client searchs aliquot by resident               # features/steps/search_aliquot.py:15
+    Then all aliquots data of this resident will be displayed # features/steps/search_aliquot.py:24
+      | UID                                  | RESIDENT   | STATUS    | URBANIZATION |
+      | 09c4942a-5fb0-4808-95e8-821c29a08731 | 1204335027 | SIN PAGAR | Urba1        |
+      | 6e3cdcd9-d3a0-402c-80e5-562096edc7f1 | 1204335027 | SIN PAGAR | Urba1        |
+
+  @searchAliquotByResidentNotFound
+  Scenario: Search aliquot by resident that not exists                                   # features/search_aliquot.feature:21
+    Given a set of aliquots                                                              # features/steps/search_aliquot.py:5
+      | UID                                  | RESIDENT   | STATUS    | URBANIZATION |
+      | 09c4942a-5fb0-4808-95e8-821c29a08731 | 1204335027 | SIN PAGAR | Urba1        |
+      | 59989b9f-7b32-4637-b7ae-d1b52d2b2a0d | 1204311386 | SIN PAGAR | Urba1        |
+      | 6e3cdcd9-d3a0-402c-80e5-562096edc7f1 | 1204335027 | SIN PAGAR | Urba1        |
+      | 1390db9b-0e23-4831-a2f5-62d2cc02cdcc | 1204389793 | PAGADO    | Urba2        |
+      | a2dafc7d-504f-4cb7-9b33-7f8d1de3d3ed | 1204389793 | PAGADO    | Urba2        |
+    Given the client enters the parameter: 1919191919                                    # features/steps/search_user.py:18
+    When the client searchs aliquot by resident                                          # features/steps/search_aliquot.py:15
+    Then the following message is displayed: No aliquot of resident 1919191919 was found # features/steps/search_user.py:57
+
+  @searchAliquotByStatus
+  Scenario: Search aliquot by resident                        # features/search_aliquot.feature:34
+    Given a set of aliquots                                   # features/steps/search_aliquot.py:5
+      | UID                                  | RESIDENT   | STATUS    | URBANIZATION |
+      | 09c4942a-5fb0-4808-95e8-821c29a08731 | 1204335027 | SIN PAGAR | Urba1        |
+      | 59989b9f-7b32-4637-b7ae-d1b52d2b2a0d | 1204311386 | SIN PAGAR | Urba1        |
+      | 6e3cdcd9-d3a0-402c-80e5-562096edc7f1 | 1204335027 | SIN PAGAR | Urba1        |
+      | 1390db9b-0e23-4831-a2f5-62d2cc02cdcc | 1204389793 | PAGADO    | Urba2        |
+      | a2dafc7d-504f-4cb7-9b33-7f8d1de3d3ed | 1204389793 | PAGADO    | Urba2        |
+    Given the client enters the parameter: PAGADO             # features/steps/search_user.py:18
+    When the client searchs aliquot by status                 # features/steps/search_aliquot.py:15
+    Then all aliquots data with this status will be displayed # features/steps/search_aliquot.py:36
+      | UID                                  | RESIDENT   | STATUS | URBANIZATION |
+      | 1390db9b-0e23-4831-a2f5-62d2cc02cdcc | 1204389793 | PAGADO | Urba2        |
+      | a2dafc7d-504f-4cb7-9b33-7f8d1de3d3ed | 1204389793 | PAGADO | Urba2        |
+
+  @searchAliquotByStatusNotFound
+  Scenario: Search aliquot by resident                                                    # features/search_aliquot.feature:50
+    Given a set of aliquots                                                               # features/steps/search_aliquot.py:5
+      | UID                                  | RESIDENT   | STATUS    | URBANIZATION |
+      | 09c4942a-5fb0-4808-95e8-821c29a08731 | 1204335027 | SIN PAGAR | Urba1        |
+      | 59989b9f-7b32-4637-b7ae-d1b52d2b2a0d | 1204311386 | SIN PAGAR | Urba1        |
+      | 6e3cdcd9-d3a0-402c-80e5-562096edc7f1 | 1204335027 | SIN PAGAR | Urba1        |
+      | 1390db9b-0e23-4831-a2f5-62d2cc02cdcc | 1204389793 | PAGADO    | Urba2        |
+      | a2dafc7d-504f-4cb7-9b33-7f8d1de3d3ed | 1204389793 | PAGADO    | Urba2        |
+    Given the client enters the parameter: COMPROBANDO                                    # features/steps/search_user.py:18
+    When the client searchs aliquot by status                                             # features/steps/search_aliquot.py:15
+    Then the following message is displayed: No aliquot with status COMPROBANDO was found # features/steps/search_user.py:57
+
+Feature: Search user by criteria # features/search_user.feature:3
+
+  @userByNickname
+  Scenario: Search user by nickname               # features/search_user.feature:6
+    Given a set of users                          # features/steps/search_user.py:8
+      | USER    | CEDULA     | EMAIL             |
+      | Byrd    | 1204311386 | Byrd@gmail.com    |
+      | Santana | 1204313174 | Santana@gmail.com |
+      | Sanford | 1204319417 | Sanford@gmail.com |
+      | Dennis  | 1204322885 | Dennis@gmail.com  |
+      | Holder  | 1204327243 | Holder@gmail.com  |
+    Given the client enters the parameter: Dennis # features/steps/search_user.py:18
+    When the client searchs user by nick          # features/steps/search_user.py:22
+    Then the user data will be displayed          # features/steps/search_user.py:45
+      | NAME   |
+      | Dennis |
+
+  @userByNicknameNotFound
+  Scenario: Search user by nickname that not exists                             # features/search_user.feature:21
+    Given a set of users                                                        # features/steps/search_user.py:8
+      | USER    | CEDULA     | EMAIL             |
+      | Byrd    | 1204311386 | Byrd@gmail.com    |
+      | Santana | 1204313174 | Santana@gmail.com |
+      | Sanford | 1204319417 | Sanford@gmail.com |
+      | Dennis  | 1204322885 | Dennis@gmail.com  |
+      | Holder  | 1204327243 | Holder@gmail.com  |
+    Given the client enters the parameter: Makoto                               # features/steps/search_user.py:18
+    When the client searchs user by nick                                        # features/steps/search_user.py:22
+    Then the following message is displayed: No user with nick Makoto was found # features/steps/search_user.py:57
+
+  @userByEmail
+  Scenario: Search user by email                             # features/search_user.feature:34
+    Given a set of users                                     # features/steps/search_user.py:8
+      | USER    | CEDULA     | EMAIL             |
+      | Byrd    | 1204311386 | Byrd@gmail.com    |
+      | Santana | 1204313174 | Santana@gmail.com |
+      | Sanford | 1204319417 | Sanford@gmail.com |
+      | Dennis  | 1204322885 | Dennis@gmail.com  |
+      | Holder  | 1204327243 | Holder@gmail.com  |
+    Given the client enters the parameter: Santana@gmail.com # features/steps/search_user.py:18
+    When the client searchs user by email                    # features/steps/search_user.py:22
+    Then the user data will be displayed                     # features/steps/search_user.py:45
+      | NAME    |
+      | Santana |
+
+  @userByEmail
+  Scenario: Search user by email that not exists                                           # features/search_user.feature:49
+    Given a set of users                                                                   # features/steps/search_user.py:8
+      | USER    | CEDULA     | EMAIL             |
+      | Byrd    | 1204311386 | Byrd@gmail.com    |
+      | Santana | 1204313174 | Santana@gmail.com |
+      | Sanford | 1204319417 | Sanford@gmail.com |
+      | Dennis  | 1204322885 | Dennis@gmail.com  |
+      | Holder  | 1204327243 | Holder@gmail.com  |
+    Given the client enters the parameter: antana@gmail.com                                # features/steps/search_user.py:18
+    When the client searchs user by email                                                  # features/steps/search_user.py:22
+    Then the following message is displayed: No user with email antana@gmail.com was found # features/steps/search_user.py:57
+
+  @userByCi
+  Scenario: Search user by ci                         # features/search_user.feature:62
+    Given a set of users                              # features/steps/search_user.py:8
+      | USER    | CEDULA     | EMAIL             |
+      | Byrd    | 1204311386 | Byrd@gmail.com    |
+      | Santana | 1204313174 | Santana@gmail.com |
+      | Sanford | 1204319417 | Sanford@gmail.com |
+      | Dennis  | 1204322885 | Dennis@gmail.com  |
+      | Holder  | 1204327243 | Holder@gmail.com  |
+    Given the client enters the parameter: 1204311386 # features/steps/search_user.py:18
+    When the client searchs user by ci                # features/steps/search_user.py:22
+    Then the user data will be displayed              # features/steps/search_user.py:45
+      | NAME |
+      | Byrd |
+
+  @userByCi
+  Scenario: Search user by ci that not exists                                     # features/search_user.feature:77
+    Given a set of users                                                          # features/steps/search_user.py:8
+      | USER    | CEDULA     | EMAIL             |
+      | Byrd    | 1204311386 | Byrd@gmail.com    |
+      | Santana | 1204313174 | Santana@gmail.com |
+      | Sanford | 1204319417 | Sanford@gmail.com |
+      | Dennis  | 1204322885 | Dennis@gmail.com  |
+      | Holder  | 1204327243 | Holder@gmail.com  |
+    Given the client enters the parameter: 1204311386                             # features/steps/search_user.py:18
+    When the client searchs user by ci                                            # features/steps/search_user.py:22
+    Then the following message is displayed: No user with ci 1204311386 was found # features/steps/search_user.py:57
+
+2 features passed, 0 failed, 0 skipped
+10 scenarios passed, 0 failed, 0 skipped
+40 steps passed, 0 failed, 0 skipped, 0 undefined
+Took 0m0.221s
